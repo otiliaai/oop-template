@@ -15,9 +15,11 @@ Nerespectarea duce la nepunctarea proiectului
 - folosirea a funcționlităților limbajului cu scopul de a încălca "legal" o altă regulă
     - folosirea excesivă a claselor friend
     - folosirea excesviă a elementelor statice  
+- fiecare cerinta va fi punctate 1/2 pe implementare + 1/2 pe faptul ca a fost implementata cu sens
+
 
 #### Cerințe
-- [ ] o mica descriere in acest README.md (0.5p)
+- [ ] o mica descriere in acest README.md (0.25p)
   - tema proiectului
   - functionalitati propuse spre implementare
   - clase principale
