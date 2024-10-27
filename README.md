@@ -54,7 +54,7 @@ Nerespectarea duce la nepunctarea proiectului
   - minim folosit într-un loc în care tratarea erorilor în modurile clasice este mai dificilă
 - [ ] folosirea unei clase abstracte [(0.25p)](https://github.com/Ionnier/poo/tree/main/labs/L04#clase-abstracte)
  - [ ] clase template
-   - [ ] crearea unei clase template (0.5)
+   - [ ] crearea unei clase template (1p)
    - [ ] 2 instanțieri ale acestei clase (0.5p)
  - STL (0.25p)
    - [ ] utilizarea a două structuri (containere) diferite (vector, list sau orice alt container care e mai mult sau mai putin un array)
