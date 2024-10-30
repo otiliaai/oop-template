@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.26)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing executable name in this file
 # for now, the project name is used as the executable name
 project(oop)
+# set(CMAKE_PROJECT_VERSION_MAJOR 0)
+# set(CMAKE_PROJECT_VERSION_MINOR 0)
+# set(CMAKE_PROJECT_VERSION_PATCH 1)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -92,11 +95,15 @@ function(set_custom_stdlib_and_sanitizers target add_apple_asan)
         endif()
     endif()
 endfunction()
+include(cmake/Options.cmake)
 
 ###############################################################################
 
 # external dependencies with FetchContent
 include(FetchContent)
+#
+# set(FETCHCONTENT_QUIET OFF)
+# set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 #
 # NOTE: Also update env vars used for caching in
 #         - .github/actions/configure-cmake/action.yml
@@ -150,6 +157,8 @@ set_custom_stdlib_and_sanitizers(${PROJECT_NAME} true)
 ###############################################################################
 
 # use SYSTEM so cppcheck/clang-tidy does not report warnings from these directories
+include(cmake/CompilerFlags.cmake)
+###############################################################################
 # target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
 # target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
@@ -158,12 +167,10 @@ set_custom_stdlib_and_sanitizers(${PROJECT_NAME} true)
 ###############################################################################
 
 # copy binaries to "bin" folder; these are uploaded as artifacts on each release
-# update name in .github/workflows/cmake.yml:29 when changing "bin" name here
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-# install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
-# install(FILES some_file1.txt some_file2.md DESTINATION bin)
+# DESTINATION_DIR is set as "bin" in cmake/Options.cmake:6
+install(TARGETS ${PROJECT_NAME} DESTINATION ${DESTINATION_DIR})
 if(APPLE)
-    install(FILES launcher.command DESTINATION bin)
+    install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
 endif()
 
 ###############################################################################
@@ -183,3 +190,8 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(test_oop)
+
+#include(cmake/CopyHelper.cmake) #TODO
+#copy_files(FILES tastatura.txt) #TODO
+# copy_files(FILES tastatura.txt config.json DIRECTORY images sounds)
+# copy_files(DIRECTORY images sounds)
