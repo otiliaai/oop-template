@@ -4,8 +4,8 @@ on:
   push:
     branches: ['*'] # NOTE: replace/update with appropriate branch name(s)
     tags: ['*']
-  pull_request:
-    branches: ['*'] # NOTE: replace/update with appropriate branch name(s)
+  # pull_request:
+  #   branches: ['*'] # NOTE: replace/update with appropriate branch name(s)
   workflow_dispatch:
     inputs:
       build_type:
@@ -189,7 +189,7 @@ jobs:
 
       - name: Build
         run: |
-          bash ./scripts/cmake.sh build -t ${{ env.BUILD_TYPE }}
+          bash ./scripts/cmake.sh build -c ${{ env.BUILD_TYPE }}
 
       - name: Test
         # Run tests
@@ -198,7 +198,7 @@ jobs:
       - name: Install
         # Use CMake to "install" build artifacts (only interested in CMake registered targets) to our custom artifacts directory
         run: |
-          bash ./scripts/cmake.sh install -i artifacts -t ${{ env.BUILD_TYPE }}
+          bash ./scripts/cmake.sh install -c ${{ env.BUILD_TYPE }} -i artifacts
 
       - name: Move artifacts
         run: |
