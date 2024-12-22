@@ -18,12 +18,7 @@ Nerespectarea duce la nepunctarea proiectului
 - fiecare cerinta va fi punctate 1/2 pe implementare + 1/2 pe faptul ca a fost implementata cu sens
 
 
-#### Cerințe
-- [ ] o mica descriere in acest README.md (0.25p)
-  - tema proiectului
-  - functionalitati propuse spre implementare
-  - clase principale
-
+## Cerințe
 - [ ] definirea a minim **2-3 ieararhii de clase** care sa interactioneze in cadrul temei alese (fie prin compunere, agregare sau doar sa apeleze metodele celeilalte intr-un mod logic) (6p)
   - minim o clasa cu:
     - [ ] constructori de inițializare
@@ -56,10 +51,20 @@ Nerespectarea duce la nepunctarea proiectului
   - minim folosit într-un loc în care tratarea erorilor în modurile clasice este mai dificilă
 - [ ] folosirea unei clase abstracte [(0.25p)](https://github.com/Ionnier/poo/tree/main/labs/L04#clase-abstracte)
  - [ ] clase template
-   - [ ] crearea unei clase template (1p)
+   - [ ] crearea unei clase template [(1p)](https://github.com/Ionnier/poo/tree/main/labs/L08)
    - [ ] 2 instanțieri ale acestei clase (0.5p)
- - STL (0.25p)
+ - STL [(0.25p)](https://github.com/Ionnier/poo/tree/main/labs/L07#stl)
    - [ ] utilizarea a două structuri (containere) diferite (vector, list sau orice alt container care e mai mult sau mai putin un array)
    - [ ] utilizarea a unui algoritm cu funcție lambda (de exemplu, sort, transform)
- - Design Patterns (0.5p)
+ - Design Patterns [(0.75p)](https://github.com/Ionnier/poo/tree/main/labs/L08)
    - [ ] utilizarea a două șabloane de proiectare
+
+### Observații
+
+* Pot exista depunctări până la 2p pentru diferite aspecte precum:
+  - memory leak-uri
+  - nefolosirea destructorului virtual la nevoie
+  - abuzarea de diferite concepte (toate funcțiile declarate virtual)
+  - apelarea de funcții virtual în constructori
+
+* În general, acestea sunt prezente în [CppCoreGuideline](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), dar nu e nevoie să parcurgeți documentul, doar să scrieți codul suficient de organizat
