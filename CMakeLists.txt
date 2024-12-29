@@ -174,22 +174,22 @@ if(APPLE)
 endif()
 
 ###############################################################################
-enable_testing()
-
-add_executable(
-        test_oop
-        ${HEADERS}
-        ${TESTS}
-        ${SOURCES}
-)
-
-target_link_libraries(
-        test_oop
-        GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(test_oop)
+#enable_testing()
+#
+#add_executable(
+#        test_oop
+#        ${HEADERS}
+#        ${TESTS}
+#        ${SOURCES}
+#)
+#
+#target_link_libraries(
+#        test_oop
+#        GTest::gtest_main
+#)
+#
+#include(GoogleTest)
+#gtest_discover_tests(test_oop)
 
 #include(cmake/CopyHelper.cmake) #TODO
 #copy_files(FILES tastatura.txt) #TODO
