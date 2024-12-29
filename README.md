@@ -1,22 +1,39 @@
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
-## Cerințe obligatorii 
+## Instrucțiuni de compilare
+
+Proiectul este configurat cu CMake.
+
+Instrucțiuni pentru terminal:
+
+1. Pasul de configurare
+```sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+```
+
+Sau pe Windows cu GCC:
+```sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -G Ninja
+```
+
+La acest pas putem cere să generăm fișiere de proiect pentru diverse medii de lucru.
+
+## Cerințe obligatorii
 
 Nerespectarea duce la nepunctarea proiectului
 
-- programul va fi scris în C++
-- programul va avea un meniu interactiv (doar pentru ilustrarea funcționalității)
-- programul nu are erori de compilare
-- fară variabile globale
-- datele membre private(sau protected)
-- GitHub Actions trecute
-- commit-uri pe Git adecvate si punctuale
-- folosirea a funcționalităților limbajului fără sens
-- folosirea a funcționlităților limbajului cu scopul de a încălca "legal" o altă regulă
-    - folosirea excesivă a claselor friend
-    - folosirea excesviă a elementelor statice  
-- fiecare cerinta va fi punctate 1/2 pe implementare + 1/2 pe faptul ca a fost implementata cu sens
-
+  - programul va fi scris în C++
+  - programul va avea un meniu interactiv (doar pentru ilustrarea funcționalității)
+  - programul nu are erori de compilare
+  - fară variabile globale
+  - datele membre private(sau protected)
+  - GitHub Actions trecute
+  - commit-uri pe Git adecvate si punctuale
+  - folosirea a funcționalităților limbajului fără sens
+  - folosirea a funcționlităților limbajului cu scopul de a încălca "legal" o altă regulă
+      - folosirea excesivă a claselor friend
+      - folosirea excesviă a elementelor statice
+  - fiecare cerinta va fi punctate 1/2 pe implementare + 1/2 pe faptul ca a fost implementata cu sens
 
 ## Cerințe
 - [ ] definirea a minim **2-3 ieararhii de clase** care sa interactioneze in cadrul temei alese (fie prin compunere, agregare sau doar sa apeleze metodele celeilalte intr-un mod logic) (6p)
