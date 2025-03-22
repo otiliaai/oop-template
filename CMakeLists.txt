@@ -100,6 +100,8 @@ function(set_custom_stdlib_and_sanitizers target add_apple_asan)
     endif()
 endfunction()
 include(cmake/Options.cmake)
+include(cmake/CompilerFlags.cmake)
+include(cmake/CopyHelper.cmake)
 
 ###############################################################################
 
@@ -130,7 +132,13 @@ FetchContent_MakeAvailable(googletest)
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES})
 
-include(cmake/CompilerFlags.cmake)
+# NOTE: Add all defined targets (e.g. executables, libraries, etc. )
+# NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
+set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
+# set_compiler_flags(TARGET_NAMES ${MAIN_EXECUTABLE_NAME} ${FOO} ${BAR})
+# where ${FOO} and ${BAR} represent additional executables or libraries
+# you want to compile with the set compiler flags
+
 ###############################################################################
 
 # use SYSTEM so cppcheck and clang-tidy do not report warnings from these directories
@@ -166,8 +174,6 @@ endif()
 #
 #include(GoogleTest)
 #gtest_discover_tests(test_oop)
-
-include(cmake/CopyHelper.cmake)
 copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})

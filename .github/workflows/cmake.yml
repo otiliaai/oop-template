@@ -148,7 +148,7 @@ jobs:
           - os: windows-2022
             c: cl
             cxx: cl
-            name: "ASan: Windows 2022 MSVC 19.41"
+            name: "ASan: Windows 2022 MSVC 19.43"
             cmake_flags: "-DUSE_ASAN=ON"
             # Ninja is not faster on MSVC because... MSVC
             # cmake_generator: "Ninja"
@@ -203,6 +203,7 @@ jobs:
       - name: Move artifacts
         run: |
           mkdir ${{ env.ZIP_NAME }}
+          shopt -s dotglob
           mv artifacts/${{ env.BIN_DIR }}/* ${{ env.ZIP_NAME }}
           ls -la ${{ env.ZIP_NAME }}
 
@@ -213,6 +214,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ZIP_NAME }}_${{ env.TIMESTAMP }}
+          include-hidden-files: true
           path: ${{ env.ZIP_NAME }}
           retention-days: 30
 

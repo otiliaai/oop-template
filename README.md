@@ -1,5 +1,13 @@
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
+### Folosiți template-ul corespunzător grupei voastre!
+
+| Laborant  | Link template                                |
+|-----------|----------------------------------------------|
+| Dragoș B  | https://github.com/Ionnier/oop-template      |
+| Tiberiu M | https://github.com/MaximTiberiu/oop-template |
+| Marius MC | https://github.com/mcmarius/oop-template     |
+
 ## Instrucțiuni de compilare
 
 Proiectul este configurat cu CMake.
@@ -9,11 +17,13 @@ Instrucțiuni pentru terminal:
 1. Pasul de configurare
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+# sau ./scripts/cmake.sh configure
 ```
 
 Sau pe Windows cu GCC:
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -G Ninja
+# sau ./scripts/cmake.sh configure -g Ninja
 ```
 
 La acest pas putem cere să generăm fișiere de proiect pentru diverse medii de lucru.
@@ -38,15 +48,15 @@ Nerespectarea duce la nepunctarea proiectului
 ## Cerințe
 - [ ] definirea a minim **2-3 ieararhii de clase** care sa interactioneze in cadrul temei alese (fie prin compunere, agregare sau doar sa apeleze metodele celeilalte intr-un mod logic) (6p)
   - minim o clasa cu:
-    - [ ] constructori de inițializare
-    - [ ] constructor supraîncărcat
-    - [ ] constructori de copiere
-    - [ ] `operator=` de copiere
-    - [ ] destructor
-    - [ ] `operator<<` pentru afișare (std::ostream)
-    - [ ] `operator>>` pentru citire (std::istream)
-    - [ ] alt operator supraîncărcat ca funcție membră
-    - [ ] alt operator supraîncărcat ca funcție non-membră
+    - [ ] constructori de inițializare [*](https://github.com/Ionnier/poo/tree/main/labs/L02#crearea-obiectelor)
+    - [ ] constructor supraîncărcat [*](https://github.com/Ionnier/poo/tree/main/labs/L02#supra%C3%AEnc%C4%83rcarea-func%C8%9Biilor)
+    - [ ] constructori de copiere [*](https://github.com/Ionnier/poo/tree/main/labs/L02#crearea-obiectelor)
+    - [ ] `operator=` de copiere [*](https://github.com/Ionnier/poo/tree/main/labs/L02#supra%C3%AEnc%C4%83rcarea-operatorilor)
+    - [ ] destructor [*](https://github.com/Ionnier/poo/tree/main/labs/L02#crearea-obiectelor)
+    - [ ] `operator<<` pentru afișare (std::ostream) [*](https://github.com/Ionnier/poo/blob/main/labs/L02/fractie.cpp#L123)
+    - [ ] `operator>>` pentru citire (std::istream) [*](https://github.com/Ionnier/poo/blob/main/labs/L02/fractie.cpp#L128)
+    - [ ] alt operator supraîncărcat ca funcție membră [*](https://github.com/Ionnier/poo/blob/main/labs/L02/fractie.cpp#L32)
+    - [ ] alt operator supraîncărcat ca funcție non-membră [*](https://github.com/Ionnier/poo/blob/main/labs/L02/fractie.cpp#L39) - nu neaparat ca friend
   - in derivate
       - [ ] implementarea funcționalităților alese prin [upcast](https://github.com/Ionnier/poo/tree/main/labs/L04#solu%C8%9Bie-func%C8%9Bii-virtuale-late-binding) și [downcast](https://github.com/Ionnier/poo/tree/main/labs/L04#smarter-downcast-dynamic-cast)
         - aceasta va fi făcută prin **2-3** metode specifice temei alese
@@ -85,3 +95,6 @@ Nerespectarea duce la nepunctarea proiectului
   - apelarea de funcții virtual în constructori
 
 * În general, acestea sunt prezente în [CppCoreGuideline](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md), dar nu e nevoie să parcurgeți documentul, doar să scrieți codul suficient de organizat
+
+* folderele `build/` și `install_dir/` sunt adăugate în fișierul `.gitignore` deoarece
+conțin fișiere generate și nu ne ajută să le versionăm.
