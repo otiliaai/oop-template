@@ -9,7 +9,7 @@ public:
     jucator();
     std::pair<int,int> get_pozitie() const;
     void set_pozitie(int pos_x, int pos_y);
-    void caracter_pozitie( int pos_x, int pos_y);
+    void caracter_pozitie( int pos_x, int pos_y) override;
     char print_jucator() const;
 
 };

@@ -7,7 +7,5 @@ class inventar {
     std::vector<diamant> diamante;
 public:
     inventar();
-    void adaugaDiamant(const diamant& d);
-    int operator+=(const diamant& od);
 };
 #endif //INVENTAR_H
