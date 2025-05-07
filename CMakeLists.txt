@@ -130,7 +130,22 @@ FetchContent_MakeAvailable(googletest)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES})
+add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES}
+        include/caracter.h
+        include/jucator.h
+        include/inamic.h
+        src/jucator.cpp
+        src/inamic.cpp
+        src/caracter.cpp
+        include/diamant.h
+        src/diamant.cpp
+        include/game.h
+        src/game.cpp
+        src/inventar.cpp
+        include/inventar.h
+        include/labirint.h
+        src/labirint.cpp
+)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
