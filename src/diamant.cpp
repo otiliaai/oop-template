@@ -1,5 +1,12 @@
 #include "diamant.h"
+int diamant::valoare = 100;
 
-int diamant::getValoare() const {
-    return this->valoare;
+diamant::diamant() {
+   this->simbol = '*';
+}
+char  diamant::print_caracter() const {
+   return this->simbol;
+}
+int diamant::get_valoare() const {
+   return this->valoare;
 }

@@ -1,11 +1,13 @@
 #ifndef DIAMANT_H
 #define DIAMANT_H
-
-#endif //DIAMANT_H
-
-class diamant {
+#include "inamic.h"
+class diamant : public inamic{
     char simbol;
-    int valoare;
+    static int valoare;
 public:
-    int getValoare() const;
+    diamant();
+    char print_caracter() const;
+    int get_valoare() const;
+
 };
+#endif //DIAMANT_H

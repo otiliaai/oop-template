@@ -3,15 +3,26 @@
 #define GAME_H
 #include "jucator.h"
 #include "labirint.h"
+#include "inventar.h"
+#include "inamic.h"
+#include <windows.h>
+
 class game {
     bool running;
-public:
     jucator j;
     labirint lab;
+    inventar inventar;
+public:
     game();
     bool pozitie_valida(labirint &lab, int x, int y);
     void run();
     void actualizeaza_harta();
     void verifica_status();
+    bool inamic_in_cale(int x, int y);
+    bool diamant_in_cale(int x, int y);
+    void omoara_inamic(inamic* i);
+    void lupta_cu_inamicul(int x,int y);
+    void colecteaza_diamant(int x,int y);
+
 };
 #endif //GAME_H

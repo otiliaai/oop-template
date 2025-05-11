@@ -21,7 +21,11 @@ public:
     caracter& operator+(const caracter& ob);
 
     virtual void caracter_pozitie( int pos_x, int pos_y) = 0;
+
+    void set_pozitie(int pos_x, int pos_y);
+    char print_caracter() const;
 };
+//supraincare operator nonmembra
 
 
 

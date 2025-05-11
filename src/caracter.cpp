@@ -63,5 +63,17 @@ caracter& caracter::operator+(const caracter& ob) {
     return  *this;
 }
 
+void caracter::set_pozitie(int pos_x, int pos_y) {
+    this->x=pos_x;
+    this->y=pos_y;
+};
+
+void caracter::caracter_pozitie( int pos_x, int pos_y) {
+    this->x=pos_x;
+    this->y=pos_y;
+}
+char caracter::print_caracter() const {
+    return this->simbol;
+}
 
 
