@@ -2,7 +2,6 @@
 #define DIAMANT_H
 #include "inamic.h"
 class diamant : public inamic{
-    char simbol;
     static int valoare;
 public:
     diamant();

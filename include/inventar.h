@@ -10,8 +10,6 @@ class inventar {
     static int sabie;
 
 public:
-    // inventar();
-    // ~inventar();
 
     static void adauga_sabie() ;
     static void scade_sabie();

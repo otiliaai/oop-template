@@ -62,7 +62,7 @@ public:
     bool valid(int x, int y) const;
     std::pair<int,int> get_dimensiuni() const;
     bool drum_liber(int x, int y) const;
-    void ajusteaza_harta(labirint& l,char p,int x_vechi,int y_vechi,int x_nou,int y_nou);
+    void ajusteaza_harta(caracter& p,int x_vechi,int y_vechi,int x_nou,int y_nou);
     std::vector<std::vector<char>>& get_harta();
     generator<inamic>& get_inamic();
     generator<diamant>& get_diamant();

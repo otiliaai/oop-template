@@ -34,8 +34,8 @@
 #include "labirint.h"
 #include "game.h"
     int main() {
-        game game1;
-        game1.run();
+        game* game1;
+        game1->get_instance()->run();
         return 0;
     }
 

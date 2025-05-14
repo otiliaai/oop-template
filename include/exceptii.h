@@ -8,7 +8,7 @@ class exceptii : public std::exception{
         std::string mesaj;
     public:
       explicit exceptii(const std::string& mesaj);
-      virtual const char* what() const noexcept override;
+    const char* what() const noexcept override;
 };
 
 #endif //EXCEPTII_H

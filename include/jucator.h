@@ -14,7 +14,8 @@ public:
     jucator& operator+(const inamic& i);
     int get_viata(); //exemplu didactic de setrs!!!!!!!!!!!!
     void verifica_viata();
-
+    void afis_viata();
+    char get_simbol();
 };
 
 

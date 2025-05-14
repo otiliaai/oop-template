@@ -60,10 +60,16 @@ bool labirint::drum_liber(int x, int y) const {
     return harta[x][y]=='_' || harta[x][y]=='X';
 }
 
-void labirint::ajusteaza_harta(labirint& l,char p,int x_vechi,int y_vechi,int x_nou,int y_nou) {
-    l.harta[x_nou][y_nou] = p;
-    l.harta[x_vechi][y_vechi] = '_';
+// void labirint::ajusteaza_harta(char p,int x_vechi,int y_vechi,int x_nou,int y_nou) {
+//     this->harta[x_nou][y_nou] = p;
+//     this->harta[x_vechi][y_vechi] = '_';
+// }
+void labirint::ajusteaza_harta(caracter& p, int x_vechi, int y_vechi, int x_nou, int y_nou) {
+    p.set_pozitie(x_nou, y_nou);
+    this->harta[x_nou][y_nou] = p.print_caracter();
+    this->harta[x_vechi][y_vechi]='_';
 }
+
 
 std::vector<std::vector<char>>& labirint::get_harta() {
     return this->harta;

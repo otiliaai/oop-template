@@ -138,6 +138,7 @@ add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES}
         include/ex_viata.h
         include/ex_bani.h
         include/generator.h
+        include/game.h
         src/jucator.cpp
         src/inamic.cpp
         src/caracter.cpp

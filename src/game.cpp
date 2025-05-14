@@ -1,6 +1,15 @@
 #include "game.h"
 #include <conio.h>
 
+game* game::instance = nullptr;
+
+game* game::get_instance() {
+    if (instance == nullptr) {
+        instance = new game();
+    }
+    return instance;
+}
+
 game::game() :lab(15,35){
     this->running = true;
 }
@@ -16,6 +25,7 @@ void game::run() {
         lab.afiseaza();
         inventar.afis_cont();
         inventar.afis_sabii();
+        j.afis_viata();
         actualizeaza_harta();
         verifica_status();
     }
@@ -43,7 +53,7 @@ void game::actualizeaza_harta() {
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
         j.set_pozitie(x_nou, y_nou);
-        lab.ajusteaza_harta(lab, j.print_caracter(), x_vechi, y_vechi, x_nou, y_nou);
+        lab.ajusteaza_harta(j, x_vechi, y_vechi, x_nou, y_nou);
     } else {
         if (inamic_in_cale(x_nou, y_nou))
             lupta_cu_inamicul(x_nou, y_nou);
@@ -70,59 +80,80 @@ bool game::diamant_in_cale(int x, int y) {
 
 
 void game::lupta_cu_inamicul(int x, int y) {
-    std::cout<<"\nAi in cale un inamic. Daca alegi sa mergi mai departe, pierzi 80% din viata ta, "
-               "daca alegi sa lupti, poti lua viata inamicului\nPentru lupta apasa 'l', pentru a continua apasa 'c'\nOptiune: ";
+    std::cout << "\nAi in cale un inamic. Daca alegi sa mergi mai departe, pierzi 70% din viata ta, "
+                 "daca alegi sa lupti, poti invinge inamicul.\nPentru lupta apasa 'l', pentru a continua apasa 'c'\nOptiune: ";
     char alegere = _getch();
-    inamic* p = lab.get_inamic().get_obiect(x,y);
+    const inamic* p = lab.get_inamic().get_obiect(x, y);
 
     if (!p) return;
 
-
     if (alegere == 'c') {
         j = j - (*p);
-        std::cout<<j.get_viata()<<std::endl;
-        _getch();
-    } else {
-        std::cout<<"\nPentru a invinge inamicul folosid sabia apasa 's'\nOptiune: ";
-        _getch();
+        try {
+            j.verifica_viata();
+        } catch (const ex_viata& e) {
+            std::cout << e.what() << std::endl;
+            running = false;
+            game_over();
+            return;
+        }
+    } else if (alegere == 'l') {
+        std::cout << "\nPentru a invinge inamicul folosind sabia, apasa 's'\n";
+        _getch(); // așteaptă să apese 's'
+
         try {
             inventar.verifica_sabii();
             inventar.scade_sabie();
-            std::cout<<"Ai invins cu succes inamicul!";
-        } catch (const  ex_insuficiente_sabii& e) {
+            std::cout << "Ai invins cu succes inamicul!";
+            Sleep(500);
+        } catch (const ex_insuficiente_sabii& e) {
             std::cout << e.what() << std::endl;
-            std::cout<<"\nPentru a cumpara o sabie (200$), apasa pe 'b'.\nOption: ";
+            std::cout << "\nPentru a cumpara o sabie (500$), apasa pe 'b'.\nOptiune: ";
             char c = _getch();
+
             if (c == 'b') {
                 try {
-                    inventar.verifica_cont();
+                    inventar.verifica_cont(500); // preț corect
                     inventar.adauga_sabie();
                     inventar.scade_sabie();
-                }
-                catch (const ex_bani& e2) {
+                    std::cout << "Ai cumparat si folosit o sabie!";
+                    Sleep(500);
+                } catch (const ex_bani& e2) {
                     std::cout << e2.what() << std::endl;
-                }
-                catch (...) {
-                    std::cout << "\nEroare necunoscuta" << std::endl;
+                    std::cout << "\nContinua si plateste cu viata. Apasa 'c'\n";
+                    _getch();
+                    j = j - (*p); // abia aici pierzi viață
+                    try {
+                        j.verifica_viata();
+                    } catch (const ex_viata& e3) {
+                        std::cout << e3.what() << std::endl;
+                        running = false;
+                        game_over();
+                        return;
+                    }
                 }
             }
         }
-        catch (...) {
-            std::cout << "\nEroare necunoscuta" << std::endl;
-        }
-       }
-        j = j + (*p);
-       lab.get_inamic().sterge_obiecte(x,y);
-        std::cout<<j.get_viata()<<std::endl;
+    } else {
+        std::cout << "\nAI APASAT O TASTA GRESITA!";
+        return;
     }
 
-void game::colecteaza_diamant(int x,int y) {
-    diamant* d = lab.get_diamant().get_obiect(x,y);
-    if (!d) return;
-    inventar+=(*d);
-    lab.get_diamant().sterge_obiecte(x,y);
+    lab.get_inamic().sterge_obiecte(x, y);
+    lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
 }
 
 
+void game::colecteaza_diamant(int x,int y) {
+    const diamant* d = lab.get_diamant().get_obiect(x,y);
+    if (!d) return;
+    inventar+=(*d);
+    lab.get_diamant().sterge_obiecte(x,y);
+    std::pair<int,int> poz = j.get_pozitie();
+   lab.ajusteaza_harta(j,poz.first,poz.second,x,y);
+}
 
-
+void game::game_over() {
+    system("cls");
+    std::cout<<"\nGAME OVER!"<<std::endl;
+}
