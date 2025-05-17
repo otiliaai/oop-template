@@ -79,7 +79,6 @@ void game::verifica_status() {
 
  void game::lupta_cu_inamicul(int x, int y) {
 
-     // std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
      char optiune;
      bool inamic_viu = true;
      const inamic* p = lab.get_inamic().get_obiect(x, y);
@@ -95,14 +94,52 @@ void game::verifica_status() {
          std::cout<<"\nOptiune: ";
          std::cin >> optiune;
          bool f = true;
+         bool alegere = true;
+         char op;
          switch (optiune) {
              case 'l': {
-                 inamic_viu = false;
+                 while (alegere) {
+                     system("cls");
+                     inv.afisare();
+                     lab.afiseaza();
+                     j.afis_viata();
+                     std::cout<<"\n1. Foloseste sabia\n2. Actualizeaza inventarul\nOptiune: ";
+                     std::cin>>op;
+
+                     switch (op) {
+
+                         case '1': {
+                             auto s = inv.gaseste_obiect(typeid(sabie));
+                             if (s != nullptr) {
+                                 inv.sterge_obiect(s);
+                                 j.set_viata(s->get_putere());
+                                 inamic_viu = false;
+                                 lab.get_inamic().sterge_obiecte(x, y);
+                                 lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                             } else {
+                                 std::cout<<"\nNU AI SUFICIENTE SABII !!!\n";
+                                 Sleep(1000);
+                             }
+                             alegere = false;
+                             break;
+                         }
+
+                         case '2': {
+                             system("cls");
+                             cumpara_obiecte();
+                             break;
+                         }
+
+                         default: {
+                             std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                             Sleep(1000);
+                         }
+
+                     }
+                 }
                  break;
              }
              case 'c': {
-                 char op;
-                 bool alegere = true;
                  while (alegere) {
                      system("cls");
                      inv.afisare();
