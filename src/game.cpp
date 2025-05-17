@@ -90,6 +90,7 @@ void game::verifica_status() {
          system("cls");
          inv.afisare();
          lab.afiseaza();
+         j.afis_viata();
          std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
          std::cout<<"\nOptiune: ";
          std::cin >> optiune;
@@ -106,11 +107,13 @@ void game::verifica_status() {
                      system("cls");
                      inv.afisare();
                      lab.afiseaza();
+                     j.afis_viata();
                      std::cout<<"\nIn continuare ai doua optiuni: \n1. Continua si pierde 70% din viata ta"
                    "\n2. Bea o potiune pentru a castiga mai multa viata\n3. Actualizeaza inventarul\nOptiune: ";
                      std::cin >> op;
 
                      switch (op) {
+
                          case '1': {
                              try {
                                  j = j - (*p);
@@ -124,29 +127,20 @@ void game::verifica_status() {
                              alegere = false;
                              break;
                          }
+
                          case '2': {
                              auto pn = inv.gaseste_obiect(typeid(potiune));
                              if (pn != nullptr) {
                                  inv.sterge_obiect(pn);
                                  j.set_viata(pn->get_putere());
-                                 if (j.get_viata()>=p->get_viata())
-                                     try {
-                                         j = j - (*p);
-                                         j.verifica_viata();
-                                     }
-                                     catch (const ex_viata& e) {
-                                         std::cout<<e.what()<<"\n";
-                                         game_over();
-                                     }
-                                     f = false;
                              } else {
                                  std::cout<<"\nNU AI SUFICIENTE POTIUNI !!!";
                                  Sleep(1000);
                              }
-
                              alegere = false;
                              break;
                          }
+
                          case '3': {
                              system("cls");
                              cumpara_obiecte();
@@ -203,6 +197,7 @@ void game::cumpara_obiecte() {
     while (cumparare) {
         system("cls");
         inv.afisare();
+        j.afis_viata();
         std::cout<<"\nCUMPARA:\n";
         std::cout<<"1. Sabie - 100$\n";
         std::cout<<"2. Scut - 150$\n";
