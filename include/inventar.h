@@ -2,24 +2,33 @@
 #define INVENTAR_H
 #include <vector>
 #include "diamant.h"
+#include "memory"
 #include "inamic.h"
 #include "ex_insuficiente_sabii.h"
 #include "ex_bani.h"
+#include "obiect_aparare.h"
+#include "potiune.h"
+#include <windows.h>
 class inventar {
     static int comoara ;
-    static int sabie;
+    std::vector<std::shared_ptr<obiect_aparare>> defense;
 
 public:
-
-    static void adauga_sabie() ;
-    static void scade_sabie();
-    int get_sabii() const;
+    void afisare() const;
     static void verifica_cont( int suma = 200);
-    static void verifica_sabii();
     void afis_cont();
-    void afis_sabii();
 
     inventar& operator+=(const diamant& d);
+
+    void adauga_obiect(std::shared_ptr<obiect_aparare> ob);
+    void sterge_obiect(std::shared_ptr<obiect_aparare> ob);
+    void afisare_obiecte_aparare();
+    std::vector<std::shared_ptr<obiect_aparare>> get_vector();
+
+    int numar_sabii() const;
+    int numar_scuturi() const;
+    int numar_potiuni () const;
+    bool suficiente(std::shared_ptr<obiect_aparare>& ob);
 
 
 };

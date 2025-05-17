@@ -11,7 +11,7 @@ class game {
     bool running;
     jucator j;
     labirint lab;
-    inventar inventar;
+    inventar inv;
     game();
     game(const game&) =  delete;
     game& operator=(const game&) = delete;
@@ -27,6 +27,9 @@ public:
     void lupta_cu_inamicul(int x,int y);
     void colecteaza_diamant(int x,int y);
     void game_over();
-
+    inventar& get_inventar();
+    void cumpara_scut();
+    void cumpara_obiecte();
+    int introdu_cantitate();
 };
 #endif //GAME_H

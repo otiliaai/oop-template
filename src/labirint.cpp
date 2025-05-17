@@ -2,19 +2,21 @@
 #include <algorithm>
 #include <random>
 #include <ctime>
+#include "generator.h"
 
-labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime), inamici(*this,12),diamante(*this,15){
-    if (lungime % 2 == 0) lungime++;
-    if (latime % 2 == 0) latime++;
-    harta.resize(lungime, std::vector<char>(latime, '#'));
-    generare_labirint(1,1);
-    harta[1][1]='P';
-    harta[lungime-2][latime-2]='X';
-    inamici.plaseaza_obiecte();
-    diamante.plaseaza_obiecte();
-}
 
-labirint::~labirint() = default;
+// labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime), inamici(*this,12),diamante(*this,15){
+//     if (lungime % 2 == 0) lungime++;
+//     if (latime % 2 == 0) latime++;
+//     harta.resize(lungime, std::vector<char>(latime, '#'));
+//     generare_labirint(1,1);
+//     harta[1][1]='P';
+//     harta[lungime-2][latime-2]='X';
+//     inamici.plaseaza_obiecte();
+//     diamante.plaseaza_obiecte();
+// }
+
+// labirint::~labirint() = default;
 
 void labirint::generare_labirint(int x, int y) {
     harta[x][y]='_';
@@ -74,11 +76,39 @@ void labirint::ajusteaza_harta(caracter& p, int x_vechi, int y_vechi, int x_nou,
 std::vector<std::vector<char>>& labirint::get_harta() {
     return this->harta;
 }
+//
+// generator<inamic>& labirint::get_inamic() {
+//     return this->inamici;
+// }
+//
+// generator<diamant>& labirint::get_diamant() {
+//     return this->diamante;
+// }
+
+labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime) {
+    if (lungime % 2 == 0) lungime++;
+    if (latime % 2 == 0) latime++;
+    harta.resize(lungime, std::vector<char>(latime, '#'));
+    generare_labirint(1,1);
+    harta[1][1] = 'P';
+    harta[lungime-2][latime-2] = 'X';
+
+    inamici = new generator<inamic>(*this, 12);
+    diamante = new generator<diamant>(*this, 15);
+
+    inamici->plaseaza_obiecte();
+    diamante->plaseaza_obiecte();
+}
+
+labirint::~labirint() {
+    delete inamici;
+    delete diamante;
+}
 
 generator<inamic>& labirint::get_inamic() {
-    return this->inamici;
+    return *inamici;
 }
 
 generator<diamant>& labirint::get_diamant() {
-    return this->diamante;
+    return *diamante;
 }

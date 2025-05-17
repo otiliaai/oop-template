@@ -3,6 +3,7 @@
 #include "caracter.h"
 #include "labirint.h"
 #include "ex_viata.h"
+#include "inamic.h"
 class jucator :public caracter{
 
 public:

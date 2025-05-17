@@ -37,7 +37,7 @@ int jucator::get_viata() {
 }
 
 void jucator::afis_viata() {
-    std::cout << "\nVIATA: "<<this->viata;
+    std::cout << "\nVIATA: "<<this->viata<<"\n";
 }
 
 

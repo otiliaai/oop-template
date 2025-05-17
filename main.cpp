@@ -33,10 +33,36 @@
     ///
 #include "labirint.h"
 #include "game.h"
-    int main() {
-        game* game1;
-        game1->get_instance()->run();
-        return 0;
-    }
+#include "obiect_aparare.h"
+#include "scut.h"
+#include "sabie.h"
+#include "inventar.h"
+int main() {
+    game* game1 = game::get_instance();
+    game1->run();
+
+    inventar& in = game1->get_inventar();
+
+    auto s1 = std::make_shared<scut>();
+    auto s2 = std::make_shared<scut>();
+    auto s3 = std::make_shared<scut>();
+    auto d1 = std::make_shared<sabie>();
+    auto d2 = std::make_shared<sabie>();
+    auto d3 = std::make_shared<sabie>();
+
+    in.adauga_obiect(s1);
+    in.adauga_obiect(s2);
+    in.adauga_obiect(d2);
+    in.afisare();
+    in.sterge_obiect(s2);
+    in.adauga_obiect(s3);
+    in.adauga_obiect(s2);
+    in.afisare_obiecte_aparare();
+    std::cout << in.numar_sabii() << std::endl;
+    std::cout << in.numar_scuturi();
+
+    return 0;
+}
+
 
 

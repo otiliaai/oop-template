@@ -1,5 +1,10 @@
 #include "game.h"
 #include <conio.h>
+#include "sabie.h"
+#include "scut.h"
+#include "obiect_aparare.h"
+#include "generator.h"
+
 
 game* game::instance = nullptr;
 
@@ -13,6 +18,7 @@ game* game::get_instance() {
 game::game() :lab(15,35){
     this->running = true;
 }
+
 bool game::pozitie_valida(labirint &lab, int x, int y) {
     int lng = lab.get_dimensiuni().first;
     int lat = lab.get_dimensiuni().second;
@@ -20,12 +26,12 @@ bool game::pozitie_valida(labirint &lab, int x, int y) {
 }
 
 void game::run() {
+    cumpara_obiecte();
     while (running) {
         system("cls");
-        lab.afiseaza();
-        inventar.afis_cont();
-        inventar.afis_sabii();
+        inv.afisare();
         j.afis_viata();
+        lab.afiseaza();
         actualizeaza_harta();
         verifica_status();
     }
@@ -55,9 +61,9 @@ void game::actualizeaza_harta() {
         j.set_pozitie(x_nou, y_nou);
         lab.ajusteaza_harta(j, x_vechi, y_vechi, x_nou, y_nou);
     } else {
-        if (inamic_in_cale(x_nou, y_nou))
+        if (lab.get_inamic().obiect_in_cale(x_nou, y_nou))
             lupta_cu_inamicul(x_nou, y_nou);
-        if (diamant_in_cale(x_nou, y_nou))
+        if (lab.get_diamant().obiect_in_cale(x_nou, y_nou))
             colecteaza_diamant(x_nou, y_nou);
     }
 
@@ -70,90 +76,130 @@ void game::verifica_status() {
     }
 }
 
-bool game::inamic_in_cale(int x, int y) {
-    return lab.get_inamic().get_obiect(x, y) != nullptr;
-}
-
-bool game::diamant_in_cale(int x, int y) {
-    return lab.get_diamant().get_obiect(x, y) != nullptr;
-}
-
 
 void game::lupta_cu_inamicul(int x, int y) {
+
     std::cout << "\nAi in cale un inamic. Daca alegi sa mergi mai departe, pierzi 70% din viata ta, "
-                 "daca alegi sa lupti, poti invinge inamicul.\nPentru lupta apasa 'l', pentru a continua apasa 'c'\nOptiune: ";
-    char alegere = _getch();
+     "daca alegi sa lupti, poti invinge inamicul.\nPentru lupta apasa 'l', pentru a continua apasa 'c'";
+
+    char optiune;
+    bool inamic_viu = true;
     const inamic* p = lab.get_inamic().get_obiect(x, y);
 
-    if (!p) return;
+    if (p == nullptr) return;
 
-    if (alegere == 'c') {
-        j = j - (*p);
-        try {
-            j.verifica_viata();
-        } catch (const ex_viata& e) {
-            std::cout << e.what() << std::endl;
-            running = false;
-            game_over();
-            return;
-        }
-    } else if (alegere == 'l') {
-        std::cout << "\nPentru a invinge inamicul folosind sabia, apasa 's'\n";
-        _getch(); // așteaptă să apese 's'
+    while (inamic_viu) {
+        std::cout<<"\nOptiune: ";
+        std::cin >> optiune;
 
-        try {
-            inventar.verifica_sabii();
-            inventar.scade_sabie();
-            std::cout << "Ai invins cu succes inamicul!";
-            Sleep(500);
-        } catch (const ex_insuficiente_sabii& e) {
-            std::cout << e.what() << std::endl;
-            std::cout << "\nPentru a cumpara o sabie (500$), apasa pe 'b'.\nOptiune: ";
-            char c = _getch();
+        switch (optiune) {
+            case 'l': {
+                inamic_viu = false;
 
-            if (c == 'b') {
+                break;
+            }
+            case 'c': {
+                inamic_viu = false;
                 try {
-                    inventar.verifica_cont(500); // preț corect
-                    inventar.adauga_sabie();
-                    inventar.scade_sabie();
-                    std::cout << "Ai cumparat si folosit o sabie!";
-                    Sleep(500);
-                } catch (const ex_bani& e2) {
-                    std::cout << e2.what() << std::endl;
-                    std::cout << "\nContinua si plateste cu viata. Apasa 'c'\n";
-                    _getch();
-                    j = j - (*p); // abia aici pierzi viață
-                    try {
-                        j.verifica_viata();
-                    } catch (const ex_viata& e3) {
-                        std::cout << e3.what() << std::endl;
-                        running = false;
-                        game_over();
-                        return;
-                    }
+                    j = j - (*p);
+                    j.verifica_viata();
                 }
+                catch (const ex_viata& e) {
+                    std::cout<<'\n'<<e.what();
+                    Sleep(1000);
+                    game_over();
+                }
+                break;
+            }
+            default: {
+                std::cout<< "Ai apasat o tasta gresita";
+                Sleep(1000);
             }
         }
-    } else {
-        std::cout << "\nAI APASAT O TASTA GRESITA!";
-        return;
     }
 
-    lab.get_inamic().sterge_obiecte(x, y);
-    lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
 }
 
 
 void game::colecteaza_diamant(int x,int y) {
     const diamant* d = lab.get_diamant().get_obiect(x,y);
     if (!d) return;
-    inventar+=(*d);
+    inv+=(*d);
     lab.get_diamant().sterge_obiecte(x,y);
     std::pair<int,int> poz = j.get_pozitie();
    lab.ajusteaza_harta(j,poz.first,poz.second,x,y);
 }
 
+
 void game::game_over() {
     system("cls");
     std::cout<<"\nGAME OVER!"<<std::endl;
+    this->running = false;
+}
+
+inventar &game::get_inventar() {
+    return this->inv;
+}
+
+void game::cumpara_obiecte() {
+
+    char optiune;
+
+    bool cumparare = true;
+    while (cumparare) {
+        system("cls");
+        inv.afisare();
+        std::cout<<"\nCUMPARA:\n";
+        std::cout<<"1. Sabie - 100$\n";
+        std::cout<<"2. Scut - 150$\n";
+        std::cout<<"3. Potiune - 150$\n";
+        std::cout<<"4. Am terminat!\n";
+        std::cout<<"\nOptiune: ";
+        std::cin>>optiune;
+
+        switch (optiune) {
+            case '1': {
+                int c = introdu_cantitate();
+                for (int i = 0; i < c; i++) {
+                    auto s = std::make_shared<sabie>();
+                    this->inv.adauga_obiect(s);
+                }
+                break;
+            }
+            case '2': {
+                int c = introdu_cantitate();
+                for (int i = 0; i < c; i++) {
+                    auto sc = std::make_shared<scut>();
+                    this->inv.adauga_obiect(sc);
+                }
+                break;
+            }
+            case '3': {
+                int c = introdu_cantitate();
+                for (int i = 0; i < c; i++) {
+                    auto p = std::make_shared<potiune>();
+                    this->inv.adauga_obiect(p);
+                }
+                break;
+            }
+            case '4': {
+                system("cls");
+                std::cout<<"\nAi actualizati inventarul cu succes!\n";
+                Sleep(1000);
+                cumparare = false;
+                break;
+            }
+            default: {
+                std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                Sleep(1000);
+            }
+        }
+    }
+}
+
+int game::introdu_cantitate() {
+    int cantitate = 0;
+    std::cout<<"Cantitate: ";
+    std::cin>>cantitate;
+    return cantitate;
 }
