@@ -44,8 +44,15 @@ void jucator::afis_viata() {
 void jucator::verifica_viata() {
     if (this->viata <0)
         throw ex_viata("\nNu mai ai viata! Nu mai poti lupta cu inamicii!");
+    else if (this->viata >100)
+        this->viata=100;
 }
 
 char jucator::get_simbol() {
     return this->simbol;
+}
+
+void jucator::set_viata(int v) {
+    this->viata+=v;
+    verifica_viata();
 }

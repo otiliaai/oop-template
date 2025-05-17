@@ -4,7 +4,7 @@
 class scut : public obiect_aparare {
   public:
     scut();
-    int get_putere() override;
+    int get_putere() const;
     ~scut() = default;
 };
 #endif //SCUT_H

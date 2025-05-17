@@ -28,8 +28,10 @@ public:
     void colecteaza_diamant(int x,int y);
     void game_over();
     inventar& get_inventar();
-    void cumpara_scut();
+
     void cumpara_obiecte();
     int introdu_cantitate();
+
+    //jucator& operator+(jucator& j, const obiect_aparare& ob);
 };
 #endif //GAME_H

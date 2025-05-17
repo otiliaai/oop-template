@@ -4,7 +4,7 @@
 #include "diamant.h"
 #include "memory"
 #include "inamic.h"
-#include "ex_insuficiente_sabii.h"
+#include "ex_insuficiente.h"
 #include "ex_bani.h"
 #include "obiect_aparare.h"
 #include "potiune.h"
@@ -29,6 +29,8 @@ public:
     int numar_scuturi() const;
     int numar_potiuni () const;
     bool suficiente(std::shared_ptr<obiect_aparare>& ob);
+
+    std::shared_ptr<obiect_aparare> gaseste_obiect(const std::type_info& tip);
 
 
 };

@@ -91,5 +91,11 @@ bool inventar::suficiente(std::shared_ptr<obiect_aparare> &ob) {
     return false;
 }
 
+std::shared_ptr<obiect_aparare> inventar::gaseste_obiect(const std::type_info& tip) {
+    for (auto& i : defense)
+        if (typeid(*i) == tip)
+            return i;
+    return nullptr;
+}
 
 

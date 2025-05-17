@@ -2,6 +2,6 @@
 
 sabie::sabie() : obiect_aparare(70,100){}
 
-int sabie::get_putere() {
+int sabie::get_putere() const{
   return this->putere;
   }

@@ -17,6 +17,7 @@ public:
     void verifica_viata();
     void afis_viata();
     char get_simbol();
+    void set_viata(int v);
 };
 
 
