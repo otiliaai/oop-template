@@ -3,8 +3,7 @@
 #include "jucator.h"
 #include "labirint.h"
 #include "inventar.h"
-#include "inamic.h"
-#include <windows.h>
+
 
 class game {
     static game* instance;
@@ -31,7 +30,7 @@ public:
 
     void cumpara_obiecte();
     int introdu_cantitate();
+    void depaseste_bomba(int x,int y);
 
-    //jucator& operator+(jucator& j, const obiect_aparare& ob);
 };
 #endif //GAME_H

@@ -65,6 +65,8 @@ void game::actualizeaza_harta() {
             lupta_cu_inamicul(x_nou, y_nou);
         if (lab.get_diamant().obiect_in_cale(x_nou, y_nou))
             colecteaza_diamant(x_nou, y_nou);
+        if (lab.get_bomba().obiect_in_cale(x_nou, y_nou))
+            depaseste_bomba(x_nou, y_nou);
     }
 
 }
@@ -293,4 +295,58 @@ int game::introdu_cantitate() {
 jucator& operator+(jucator& j, obiect_aparare& ob) {
     j.set_viata(j.get_viata()+(100-ob.get_putere()));
     return j;
+}
+
+void game::depaseste_bomba(int x,int y) {
+    const bombe* b = lab.get_bomba().get_obiect(x,y);
+    if (b == nullptr) return;
+    bool alegere = true;
+    char ch;
+    while (alegere) {
+        system("cls");
+        inv.afisare();
+        lab.afiseaza();
+        j.afis_viata();
+        std::cout<<"\nAi o bomba in cale. Daca continui sa mergi, bomba explodeaza. Poti diminua efectele asupra vietii "
+               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Actualizeaza inventar\nOptiune: ";
+        std::cin>>ch;
+        switch (ch) {
+
+            case '1': {
+                b->explodeaza(j);
+                game_over();
+                alegere = false;
+                break;
+            }
+
+            case '2' : {
+                try {
+                    auto s = inv.gaseste_obiect(typeid(scut));
+                    if (s != nullptr) {
+                        j = j-(*b);
+                        inv.sterge_obiect(s);
+                        lab.get_bomba().sterge_obiecte(x, y);
+                        lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                        alegere = false;
+                    } else throw ex_insuficiente("Insuficiente scuturi");
+                }
+                catch (const std::exception& e) {
+                    std::cout<<e.what();
+                    Sleep(1000);
+                }
+                break;
+            }
+            case '3': {
+                system("cls");
+                cumpara_obiecte();
+                alegere = false;
+                break;
+            }
+
+            default: {
+                std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                Sleep(1000);
+            }
+        }
+    }
 }

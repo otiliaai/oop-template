@@ -3,11 +3,15 @@
 #include <iostream>
 
 class obiect_labirint{
+protected:
   int x,y;
   char simbol;
   public:
+    obiect_labirint() = default;
+    virtual ~obiect_labirint() = default;
+    virtual char print_caracter() const = 0;
+    void set_pozitie(int x,int y);
 
-      std::pair<int,int> get_poz_ob();
 
   };
 #endif //OBIECT_LABIRINT_H

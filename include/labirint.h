@@ -7,10 +7,12 @@
 #include <set>
 #include <map>
 #include <memory>
+#include "bombe.h"
 
 class inamic;
 class diamant;
 class caracter;
+class bombe;
 
 template<typename T>
 class generator;
@@ -21,6 +23,7 @@ class labirint {
 
     generator<inamic>* inamici;
     generator<diamant>* diamante;
+    generator<bombe>* bomba;
 
     void generare_labirint(int x, int y);
 
@@ -38,6 +41,7 @@ public:
 
     generator<inamic>& get_inamic();
     generator<diamant>& get_diamant();
+    generator<bombe>& get_bomba();
 };
 
 #endif // LABIRINT_H

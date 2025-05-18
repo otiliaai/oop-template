@@ -4,20 +4,6 @@
 #include <ctime>
 #include "generator.h"
 
-
-// labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime), inamici(*this,12),diamante(*this,15){
-//     if (lungime % 2 == 0) lungime++;
-//     if (latime % 2 == 0) latime++;
-//     harta.resize(lungime, std::vector<char>(latime, '#'));
-//     generare_labirint(1,1);
-//     harta[1][1]='P';
-//     harta[lungime-2][latime-2]='X';
-//     inamici.plaseaza_obiecte();
-//     diamante.plaseaza_obiecte();
-// }
-
-// labirint::~labirint() = default;
-
 void labirint::generare_labirint(int x, int y) {
     harta[x][y]='_';
     std::vector<std::pair<int ,int>>
@@ -62,10 +48,6 @@ bool labirint::drum_liber(int x, int y) const {
     return harta[x][y]=='_' || harta[x][y]=='X';
 }
 
-// void labirint::ajusteaza_harta(char p,int x_vechi,int y_vechi,int x_nou,int y_nou) {
-//     this->harta[x_nou][y_nou] = p;
-//     this->harta[x_vechi][y_vechi] = '_';
-// }
 void labirint::ajusteaza_harta(caracter& p, int x_vechi, int y_vechi, int x_nou, int y_nou) {
     p.set_pozitie(x_nou, y_nou);
     this->harta[x_nou][y_nou] = p.print_caracter();
@@ -76,14 +58,6 @@ void labirint::ajusteaza_harta(caracter& p, int x_vechi, int y_vechi, int x_nou,
 std::vector<std::vector<char>>& labirint::get_harta() {
     return this->harta;
 }
-//
-// generator<inamic>& labirint::get_inamic() {
-//     return this->inamici;
-// }
-//
-// generator<diamant>& labirint::get_diamant() {
-//     return this->diamante;
-// }
 
 labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime) {
     if (lungime % 2 == 0) lungime++;
@@ -95,14 +69,17 @@ labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime) {
 
     inamici = new generator<inamic>(*this, 12);
     diamante = new generator<diamant>(*this, 15);
+    bomba = new generator<bombe>(*this, 10);
 
     inamici->plaseaza_obiecte();
     diamante->plaseaza_obiecte();
+    bomba->plaseaza_obiecte();
 }
 
 labirint::~labirint() {
     delete inamici;
     delete diamante;
+    delete bomba;
 }
 
 generator<inamic>& labirint::get_inamic() {
@@ -112,3 +89,9 @@ generator<inamic>& labirint::get_inamic() {
 generator<diamant>& labirint::get_diamant() {
     return *diamante;
 }
+
+generator<bombe>& labirint::get_bomba() {
+    return *bomba;
+}
+
+

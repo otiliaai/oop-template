@@ -28,6 +28,12 @@ jucator& jucator::operator-(const inamic& i) {
     this->viata-=i.get_viata();
     return *this;
 }
+
+jucator& jucator::operator-(const bombe& b) {
+    this->viata-=b.get_dauna();
+    return *this;
+}
+
 jucator& jucator::operator+(const inamic& i) {
     this->viata+=i.get_viata();
     return *this;

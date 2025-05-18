@@ -1,8 +1,9 @@
 #include <iostream>
 #include "obiect_labirint.h"
 
-std::pair<int,int> obiect_labirint::get_poz_ob(){
-  return {this->x,this->y};
- }
+ void obiect_labirint::set_pozitie(int pos_x, int pos_y) {
+   this->x=pos_x;
+   this->y=pos_y;
+ };
 
 

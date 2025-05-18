@@ -141,11 +141,13 @@ add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES}
         include/game.h
         include/scut.h
         include/potiune.h
+        include/bombe.h
         include/ex_insuficiente.h
         src/jucator.cpp
         src/potiune.cpp
         src/inamic.cpp
         src/caracter.cpp
+        src/bombe.cpp
         include/diamant.h
         src/diamant.cpp
         include/game.h
