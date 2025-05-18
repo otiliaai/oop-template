@@ -169,16 +169,21 @@ void game::verifica_status() {
 
                          case '2': {
                              auto pn = inv.gaseste_obiect(typeid(potiune));
-                             if (pn != nullptr) {
-                                 inv.sterge_obiect(pn);
-                                 j.set_viata(pn->get_putere());
-                             } else {
-                                 std::cout<<"\nNU AI SUFICIENTE POTIUNI !!!";
+                             try {
+                                 if (pn != nullptr) {
+                                     inv.sterge_obiect(pn);
+                                     j.set_viata(pn->get_putere());
+                                 }
+                                 else throw ex_insuficiente("INSUFICIENTE!");
+                             }
+                             catch (const ex_insuficiente& e){
+                                 std::cout<<e.what()<<"\n";
                                  Sleep(1000);
                              }
                              alegere = false;
                              break;
                          }
+
 
                          case '3': {
                              system("cls");
