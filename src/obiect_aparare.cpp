@@ -9,3 +9,5 @@ int obiect_aparare::get_pret() const {
 int obiect_aparare::get_putere() const {
   return this->putere;
 }
+
+//void calcul_formula_diminuare_damage

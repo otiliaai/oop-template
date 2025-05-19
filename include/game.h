@@ -3,7 +3,10 @@
 #include "jucator.h"
 #include "labirint.h"
 #include "inventar.h"
-
+#include "object_factory.h"
+#include "potiune_factory.h"
+#include "sabie_factory.h"
+#include "scut_factory.h"
 
 class game {
     static game* instance;
@@ -14,6 +17,7 @@ class game {
     game();
     game(const game&) =  delete;
     game& operator=(const game&) = delete;
+
 public:
     static game* get_instance();
     bool pozitie_valida(labirint &lab, int x, int y);
