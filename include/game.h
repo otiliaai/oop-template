@@ -3,10 +3,6 @@
 #include "jucator.h"
 #include "labirint.h"
 #include "inventar.h"
-#include "object_factory.h"
-#include "potiune_factory.h"
-#include "sabie_factory.h"
-#include "scut_factory.h"
 
 class game {
     static game* instance;
@@ -15,25 +11,27 @@ class game {
     labirint lab;
     inventar inv;
     game();
-    game(const game&) =  delete;
-    game& operator=(const game&) = delete;
 
 public:
+    game(const game&) =  delete;
+    game& operator=(const game&) = delete;
     static game* get_instance();
-    bool pozitie_valida(labirint &lab, int x, int y);
+
+    static bool pozitie_valida(const labirint &lab, int x, int y);
     void run();
     void actualizeaza_harta();
     void verifica_status();
-    bool inamic_in_cale(int x, int y);
-    bool diamant_in_cale(int x, int y);
-    void omoara_inamic(inamic* i);
+    // bool inamic_in_cale(int x, int y);
+    // bool diamant_in_cale(int x, int y);
+    // void omoara_inamic(inamic* i);
     void lupta_cu_inamicul(int x,int y);
     void colecteaza_diamant(int x,int y);
     void game_over();
     inventar& get_inventar();
 
     void cumpara_obiecte();
-    int introdu_cantitate();
+
+    static int introdu_cantitate();
     void depaseste_bomba(int x,int y);
 
 };

@@ -3,9 +3,8 @@
 #include <ctime>
 #include <map>
 #include <memory>
-
-#include "inventar.h"
 #include "labirint.h"
+#include <random>
 class labirint;
 template<typename T>
 class generator {
@@ -46,6 +45,8 @@ void generator<T>::plaseaza_obiecte() {
             ob->set_pozitie(new_x,new_y);
             obiect[{new_x,new_y}] = ob;
             lab.get_harta()[new_x][new_y] = ob->print_caracter();
+
+            ///TODO:metoda la labirint de adaugare obiect, getterele returneaza CONST
             i++;
         }
     }

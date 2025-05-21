@@ -1,35 +1,38 @@
 #include "caracter.h"
 
-//constructor de initializare
-caracter::caracter(){
-    this->x=0;
-    this->y=0;
-    this->viata=100;
+///constructor de initializare
+caracter::caracter(): simbol('S') {
+    this->x = 0;
+    this->y = 0;
+    this->viata = 100;
 }
-//constructor cu parametri
+
+///constructor cu parametri
 caracter::caracter(char simbol,int x,int y,int viata) {
     this->x=x;
     this->y=y;
     this->viata=viata;
     this->simbol=simbol;
 }
-//constructor supraincarcat->il voi folosi ptu inamic
-caracter::caracter(int x,int y,int viata) {
-    this->x=x;
-    this->y=y;
-    this->viata=viata;
+///constructor supraincarcat->il voi folosi ptu inamic
+caracter::caracter(int x,int y,int viata): simbol('S') {
+    this->x = x;
+    this->y = y;
+    this->viata = viata;
 }
-//constructor de copiere
+
+///constructor de copiere
 caracter::caracter(const caracter& org): simbol(org.simbol) {
     this->x=org.x;
     this->y=org.y;
     this->viata=org.viata;
     this->simbol=org.simbol;
 }
+///destructor
 caracter::~caracter() {
     this->viata=0;
 }
-//operator =
+///operator =
 caracter& caracter::operator=(const caracter& org){
     if (this == &org) {
         return *this;
@@ -56,8 +59,8 @@ std::ostream& operator<<(std::ostream &out,const caracter& ob) {
     out<<"Viata: "<<ob.viata << "\n";
     return out;
 }
-// supraincarea operatorului + pentru a putea aduna
-// viata inamicului la viata jucatorului dupa ce acesta moare
+/// supraincarea operatorului + pentru a putea aduna
+/// viata inamicului la viata jucatorului dupa ce acesta moare
 caracter& caracter::operator+(const caracter& ob) {
     this->viata+=ob.viata;
     return  *this;

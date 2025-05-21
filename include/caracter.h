@@ -9,8 +9,9 @@ protected:
     int x,y;
     int viata;
 public:
+    ///TODO: ALTA FUNCTIE VIRTUALA PENTRU A FACE MOSTENIREA CU SENS
     caracter();
-    caracter(const char simbol,int x,int y,int viata);
+    caracter(char simbol,int x,int y,int viata);
     caracter(int x,int y,int viata);
     caracter(const caracter& org);
     virtual ~caracter();
@@ -23,9 +24,8 @@ public:
     virtual void caracter_pozitie( int pos_x, int pos_y) = 0;
 
     void set_pozitie(int pos_x, int pos_y);
-    char print_caracter() const;
+    [[nodiscard]] char print_caracter() const;
 };
-//supraincare operator nonmembra
 
 
 

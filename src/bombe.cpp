@@ -13,6 +13,6 @@ char bombe::print_caracter() const {
   return this->simbol;
 }
 
-void bombe::explodeaza(jucator& j) const{
+void bombe::explodeaza(jucator& j) {
   j.set_viata(-j.get_viata());
 }

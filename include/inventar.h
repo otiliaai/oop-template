@@ -3,12 +3,8 @@
 #include <vector>
 #include "diamant.h"
 #include "memory"
-#include "inamic.h"
-#include "ex_insuficiente.h"
 #include "ex_bani.h"
 #include "obiect_aparare.h"
-#include "potiune.h"
-#include <windows.h>
 class inventar {
     static int comoara ;
     std::vector<std::shared_ptr<obiect_aparare>> defense;
@@ -16,19 +12,19 @@ class inventar {
 public:
     void afisare() const;
     static void verifica_cont( int suma = 200);
-    void afis_cont();
+    void afis_cont() const;
 
     inventar& operator+=(const diamant& d);
 
-    void adauga_obiect(std::shared_ptr<obiect_aparare> ob);
+    void adauga_obiect(const std::shared_ptr<obiect_aparare> &ob);
     void sterge_obiect(std::shared_ptr<obiect_aparare> ob);
-    void afisare_obiecte_aparare();
+    void afisare_obiecte_aparare() const;
     std::vector<std::shared_ptr<obiect_aparare>> get_vector();
 
     int numar_sabii() const;
     int numar_scuturi() const;
     int numar_potiuni () const;
-    bool suficiente(std::shared_ptr<obiect_aparare>& ob);
+    bool suficiente(const std::shared_ptr<obiect_aparare>& ob) const;
 
     std::shared_ptr<obiect_aparare> gaseste_obiect(const std::type_info& tip);
 

@@ -6,7 +6,7 @@ protected:
     int pret;
   public:
     obiect_aparare(int putere,int pret);
-    virtual int get_putere() const= 0;
+    virtual int calc_putere() const= 0;
     virtual int get_pret() const;
     virtual ~obiect_aparare() = default;
 

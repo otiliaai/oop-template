@@ -1,7 +1,7 @@
 #include "potiune.h"
 
-potiune::potiune():obiect_aparare(50,150){}
+potiune::potiune():obiect_aparare(100,150){};
 
-int potiune::get_putere() const{
-  return this->putere;
+int potiune::calc_putere() const{
+  return this->putere-20;
 }

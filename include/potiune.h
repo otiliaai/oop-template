@@ -4,7 +4,7 @@
 class potiune : public obiect_aparare {
   public:
     potiune();
-    int get_putere() const override;
+    int calc_putere() const override;
     ~potiune() = default;
    };
 #endif //POTIUNE_H

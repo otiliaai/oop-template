@@ -2,10 +2,6 @@
 #define LABIRINT_H
 
 #include <vector>
-#include <queue>
-#include <iostream>
-#include <set>
-#include <map>
 #include <memory>
 #include "bombe.h"
 
@@ -25,9 +21,8 @@ class labirint {
     generator<diamant>* diamante;
     generator<bombe>* bomba;
 
-    void generare_labirint(int x, int y);
-
 public:
+    void generare_labirint(int x, int y);
     labirint(int lungime, int latime);
     ~labirint();
 
@@ -39,9 +34,9 @@ public:
     void ajusteaza_harta(caracter& p, int x_vechi, int y_vechi, int x_nou, int y_nou);
     std::vector<std::vector<char>>& get_harta();
 
-    generator<inamic>& get_inamic();
-    generator<diamant>& get_diamant();
-    generator<bombe>& get_bomba();
+    generator<inamic>& get_inamic() const;
+    generator<diamant>& get_diamant() const;
+    generator<bombe>& get_bomba() const;
 };
 
 #endif // LABIRINT_H

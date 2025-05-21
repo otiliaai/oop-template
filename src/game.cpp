@@ -4,8 +4,9 @@
 #include "scut.h"
 #include "obiect_aparare.h"
 #include "generator.h"
-
-
+#include "ex_insuficiente.h"
+#include "potiune_factory.h"
+#include "windows.h"
 game* game::instance = nullptr;
 
 game* game::get_instance() {
@@ -19,7 +20,7 @@ game::game() :lab(15,35){
     this->running = true;
 }
 
-bool game::pozitie_valida(labirint &lab, int x, int y) {
+bool game::pozitie_valida(const labirint &lab, int x, int y) {
     int lng = lab.get_dimensiuni().first;
     int lat = lab.get_dimensiuni().second;
     return  x > 0 && x < lng && y > 0 && y < lat && lab.drum_liber(x,y);
@@ -54,6 +55,7 @@ void game::actualizeaza_harta() {
             case 80: x_nou += 1; break;
             case 75: y_nou -= 1; break;
             case 77: y_nou += 1; break;
+            default: std::cout<<"Ai apasat o tasta gresita!";
         }
     }
 
@@ -95,7 +97,6 @@ void game::verifica_status() {
          std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
          std::cout<<"\nOptiune: ";
          std::cin >> optiune;
-         bool f = true;
          bool alegere = true;
          char op;
          switch (optiune) {
@@ -114,7 +115,7 @@ void game::verifica_status() {
                              auto s = inv.gaseste_obiect(typeid(sabie));
                              if (s != nullptr) {
                                  inv.sterge_obiect(s);
-                                 j.set_viata(s->get_putere());
+                                 j.set_viata(s->calc_putere());
                                  inamic_viu = false;
                                  lab.get_inamic().sterge_obiecte(x, y);
                                  lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
@@ -142,6 +143,7 @@ void game::verifica_status() {
                  break;
              }
              case 'c': {
+                 bool f = true;
                  while (alegere) {
                      system("cls");
                      inv.afisare();
@@ -172,7 +174,7 @@ void game::verifica_status() {
                              try {
                                  if (pn != nullptr) {
                                      inv.sterge_obiect(pn);
-                                     j.set_viata(pn->get_putere());
+                                     j.set_viata(pn->calc_putere());
                                  }
                                  else throw ex_insuficiente("INSUFICIENTE!");
                              }
@@ -297,8 +299,8 @@ int game::introdu_cantitate() {
     return cantitate;
 }
 
-jucator& operator+(jucator& j, obiect_aparare& ob) {
-    j.set_viata(j.get_viata()+(100-ob.get_putere()));
+jucator& operator+(jucator& j, const obiect_aparare& ob) {
+    j.set_viata(j.get_viata()+(100-ob.calc_putere()));
     return j;
 }
 

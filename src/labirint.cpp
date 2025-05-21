@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <random>
 #include <ctime>
+#include "diamant.h"
 #include "generator.h"
 
 void labirint::generare_labirint(int x, int y) {
@@ -10,7 +11,7 @@ void labirint::generare_labirint(int x, int y) {
     directii = {{0,2},{0,-2}, {-2,0},{2,0}};
 
     static std::mt19937 rng(static_cast<unsigned>(std::time(nullptr)));
-    std::shuffle(directii.begin(), directii.end(), rng);
+    std::ranges::shuffle(directii, rng);
 
     for (const auto& directie: directii) {
         int dx = directie.first;
@@ -82,15 +83,15 @@ labirint::~labirint() {
     delete bomba;
 }
 
-generator<inamic>& labirint::get_inamic() {
+generator<inamic>& labirint::get_inamic() const {
     return *inamici;
 }
 
-generator<diamant>& labirint::get_diamant() {
+generator<diamant>& labirint::get_diamant() const {
     return *diamante;
 }
 
-generator<bombe>& labirint::get_bomba() {
+generator<bombe>& labirint::get_bomba() const {
     return *bomba;
 }
 

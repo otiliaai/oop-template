@@ -12,6 +12,7 @@ void inamic::caracter_pozitie( int pos_x, int pos_y)  {
 std::pair<int,int > inamic::get_pozitie() {
     return std::pair<int,int>(this->x,this->y);
 }
+
 int inamic::get_viata() const{
     return this->viata;
 }

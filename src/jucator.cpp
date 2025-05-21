@@ -38,11 +38,11 @@ jucator& jucator::operator+(const inamic& i) {
     this->viata+=i.get_viata();
     return *this;
 }
-int jucator::get_viata() {
+int jucator::get_viata() const {
     return this->viata;
 }
 
-void jucator::afis_viata() {
+void jucator::afis_viata() const {
     std::cout << "\nVIATA: "<<this->viata<<"\n";
 }
 
@@ -54,7 +54,7 @@ void jucator::verifica_viata() {
         this->viata=100;
 }
 
-char jucator::get_simbol() {
+char jucator::get_simbol() const {
     return this->simbol;
 }
 

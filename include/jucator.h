@@ -2,12 +2,11 @@
 #define JUCATOR_H
 #include "caracter.h"
 #include "labirint.h"
-#include "ex_viata.h"
 #include "inamic.h"
-#include "obiect_aparare.h"
-
-
+#include "ex_viata.h"
 class bombe;
+
+
 
 class jucator :public caracter{
 
@@ -19,10 +18,10 @@ public:
     jucator& operator-(const inamic& i);
     jucator& operator-(const bombe& b);
     jucator& operator+(const inamic& i);
-    int get_viata(); //exemplu didactic de setrs!!!!!!!!!!!!
+    int get_viata() const;
     void verifica_viata();
-    void afis_viata();
-    char get_simbol();
+    void afis_viata() const;
+    char get_simbol() const;
     void set_viata(int v);
 };
 

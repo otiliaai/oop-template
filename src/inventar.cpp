@@ -1,12 +1,12 @@
 #include "inventar.h"
-#include <conio.h>
 #include <ex_viata.h>
 #include "obiect_aparare.h"
 #include "sabie.h"
 #include "scut.h"
 #include <algorithm>
-
+#include "potiune.h"
 #include "generator.h"
+#include "windows.h"
 
 int inventar::comoara = 500;
 
@@ -30,20 +30,20 @@ inventar& inventar::operator+=(const diamant& d) {
     this->comoara+=d.get_valoare();
     return *this;
 }
-void inventar::afis_cont() {
+void  inventar::afis_cont() const {
     std::cout<<"\nCONT: "<<this->comoara;
 }
 
-void inventar::afisare_obiecte_aparare() {
+void inventar::afisare_obiecte_aparare() const {
     for (auto& i : defense)
-        std::cout<<i->get_putere()<<" ";
+        std::cout<<i->calc_putere()<<" ";
 }
 
 std::vector<std::shared_ptr<obiect_aparare>> inventar::get_vector() {
     return this->defense;
 }
 ///upcasting
-void inventar::adauga_obiect(std::shared_ptr<obiect_aparare> ob) {
+void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
     try {
         verifica_cont(ob->get_pret());
         this->defense.push_back(ob);
@@ -57,10 +57,10 @@ void inventar::adauga_obiect(std::shared_ptr<obiect_aparare> ob) {
 }
 
 void inventar::sterge_obiect(std::shared_ptr<obiect_aparare> ob) {
-    auto it = std::remove_if(defense.begin(), defense.end(),
+    auto it = std::ranges::remove_if(defense,
         [&ob](const std::shared_ptr<obiect_aparare>& ptr) {
             return ptr == ob;
-        });
+    }).begin();
     defense.erase(it, defense.end());
 }
 
@@ -78,14 +78,14 @@ int inventar::numar_potiuni() const {
 }
 
 
-bool inventar::suficiente(std::shared_ptr<obiect_aparare> &ob) {
-    if (auto ptr = std::dynamic_pointer_cast<scut>(ob))
+bool inventar::suficiente(const std::shared_ptr<obiect_aparare> &ob) const {
+    if (std::dynamic_pointer_cast<scut>(ob))
         return this->numar_scuturi()>0;
     else
-        if (auto ptr = std::dynamic_pointer_cast<sabie>(ob))
+        if (std::dynamic_pointer_cast<sabie>(ob))
             return this->numar_sabii()>0;
     else
-        if (auto ptr = std::dynamic_pointer_cast<potiune>(ob))
+        if (std::dynamic_pointer_cast<potiune>(ob))
             return this->numar_potiuni()>0;
 
     return false;

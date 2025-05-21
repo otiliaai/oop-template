@@ -9,10 +9,11 @@ class bombe: public obiect_labirint {
   int dauna;
   public:
     bombe();
-    ~bombe() = default;
-    int get_dauna() const;
-    char print_caracter() const override;
-    void explodeaza(jucator& j) const;
+    ~bombe() override = default;
+    [[nodiscard]] int get_dauna() const;
+    [[nodiscard]] char print_caracter() const override;
+
+  static void explodeaza(jucator& j);
 
 };
 #endif //BOMBE_H
