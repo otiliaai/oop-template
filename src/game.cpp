@@ -1,5 +1,4 @@
 #include "game.h"
-#include <conio.h>
 #include "sabie.h"
 #include "scut.h"
 #include "obiect_aparare.h"
@@ -8,8 +7,6 @@
 #include "potiune_factory.h"
 #include "sabie_factory.h"
 #include "scut_factory.h"
-//#include "potiune_factory.h"
-// #include "windows.h"
 game* game::instance = nullptr;
 
 game* game::get_instance() {
@@ -48,19 +45,16 @@ void game::actualizeaza_harta() {
     int x_nou = x_vechi;
     int y_nou = y_vechi;
 
-    int key = _getch();
-
-    if (key == 224) {
-        key = _getch();
+    char key;
+    std::cin>>key;
 
         switch (key) {
-            case 72: x_nou -= 1; break;
-            case 80: x_nou += 1; break;
-            case 75: y_nou -= 1; break;
-            case 77: y_nou += 1; break;
+            case 'w': x_nou -= 1; break;
+            case 's': x_nou += 1; break;
+            case 'a': y_nou -= 1; break;
+            case 'd': y_nou += 1; break;
             default: std::cout<<"\nAi apasat o tasta gresita!\n";
         }
-    }
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
         j.set_pozitie(x_nou, y_nou);
@@ -339,3 +333,5 @@ void game::depaseste_bomba(int x,int y) {
         }
     }
 }
+#endif // _WIN32
+

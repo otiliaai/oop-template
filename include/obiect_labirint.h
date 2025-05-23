@@ -1,6 +1,5 @@
 #ifndef OBIECT_LABIRINT_H
 #define OBIECT_LABIRINT_H
-#include <iostream>
 
 class obiect_labirint{
 protected:
