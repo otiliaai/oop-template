@@ -12,12 +12,11 @@ class inventar {
 public:
     void afisare() const;
     static void verifica_cont( int suma = 200);
-    void afis_cont() const;
 
     inventar& operator+=(const diamant& d);
 
     void adauga_obiect(const std::shared_ptr<obiect_aparare> &ob);
-    void sterge_obiect(std::shared_ptr<obiect_aparare> ob);
+    void sterge_obiect(std::shared_ptr<obiect_aparare>& ob);
     void afisare_obiecte_aparare() const;
     std::vector<std::shared_ptr<obiect_aparare>> get_vector();
 

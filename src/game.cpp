@@ -55,7 +55,7 @@ void game::actualizeaza_harta() {
             case 80: x_nou += 1; break;
             case 75: y_nou -= 1; break;
             case 77: y_nou += 1; break;
-            default: std::cout<<"Ai apasat o tasta gresita!";
+            default: std::cout<<"\nAi apasat o tasta gresita!\n";
         }
     }
 
@@ -75,7 +75,7 @@ void game::actualizeaza_harta() {
 void game::verifica_status() {
     if (j.get_pozitie().first==lab.get_dimensiuni().first-2 && j.get_pozitie().second==lab.get_dimensiuni().second-2) {
         //system("cls");
-        std::cout<<"AI CASTIGAT JOCUL";
+        std::cout<<"\nAI CASTIGAT JOCUL\n";
         running = false;
     }
 }
@@ -134,7 +134,7 @@ void game::verifica_status() {
                          }
 
                          default: {
-                             std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                             std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
                              //Sleep(1000);
                          }
 
@@ -194,7 +194,7 @@ void game::verifica_status() {
                          }
 
                          default: {
-                             std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                             std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
                              //Sleep(1000);
                          }
                      }
@@ -207,7 +207,7 @@ void game::verifica_status() {
                  break;
              }
              default: {
-                 std::cout<< "Ai apasat o tasta gresita";
+                 std::cout<< "\nAi apasat o tasta gresita\n";
                  //Sleep(1000);
              }
          }
@@ -227,7 +227,7 @@ void game::colecteaza_diamant(int x,int y) {
 
 void game::game_over() {
    // system("cls");
-    std::cout<<"\nGAME OVER!"<<std::endl;
+    std::cout<<"\nGAME OVER!\n"<<std::endl;
     this->running = false;
 }
 
@@ -273,7 +273,7 @@ void game::cumpara_obiecte() {
                 break;
             }
             default: {
-                std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
                // Sleep(1000);
             }
         }
@@ -316,7 +316,7 @@ void game::depaseste_bomba(int x,int y) {
                         lab.get_bomba().sterge_obiecte(x, y);
                         lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
                         alegere = false;
-                    } else throw ex_insuficiente("Insuficiente scuturi");
+                    } else throw ex_insuficiente("\nInsuficiente scuturi\n");
                 }
                 catch (const std::exception& e) {
                     std::cout<<e.what();
@@ -332,7 +332,7 @@ void game::depaseste_bomba(int x,int y) {
             }
 
             default: {
-                std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
+                std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
                 //Sleep(1000);
             }
         }

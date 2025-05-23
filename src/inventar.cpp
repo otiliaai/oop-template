@@ -11,7 +11,7 @@
 int inventar::comoara = 500;
 
 void inventar::afisare() const {
-    std::cout <<"====INVENTAR=====" << std::endl;
+    std::cout <<"\n====INVENTAR=====\n" << std::endl;
     std::cout<<"Sabii (100$): "<<this->numar_sabii()<<"\n";
     std::cout<<"Scuturi (150$): "<<this->numar_scuturi()<<"\n";
     std::cout<<"Potiuni (150$): "<<this->numar_potiuni()<<"\n";
@@ -29,10 +29,6 @@ inventar& inventar::operator+=(const diamant& d) {
     this->comoara+=d.get_valoare();
     return *this;
 }
-void  inventar::afis_cont() const {
-    std::cout<<"\nCONT: "<<this->comoara;
-}
-
 void inventar::afisare_obiecte_aparare() const {
     for (auto& i : defense)
         std::cout<<i->calc_putere()<<" ";
@@ -54,7 +50,14 @@ void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
     for (int i = 0; i < c; i++) {
         try {
             verifica_cont(ob->get_pret());
-            this->defense.push_back(ob);
+            std::shared_ptr<obiect_aparare> ob_nou;
+            if (std::dynamic_pointer_cast<sabie>(ob))
+                ob_nou = std::make_shared<sabie>();
+            else if (std::dynamic_pointer_cast<scut>(ob))
+                ob_nou = std::make_shared<scut>();
+            else if (std::dynamic_pointer_cast<potiune>(ob))
+                ob_nou = std::make_shared<potiune>();
+            this->defense.push_back(ob_nou);
             this->comoara-=ob->get_pret();
         }
         catch (const ex_bani& e) {
@@ -65,7 +68,7 @@ void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
 
 }
 
-void inventar::sterge_obiect(std::shared_ptr<obiect_aparare> ob) {
+void inventar::sterge_obiect(std::shared_ptr<obiect_aparare>& ob) {
     auto it = std::ranges::remove_if(defense,
         [&ob](const std::shared_ptr<obiect_aparare>& ptr) {
             return ptr == ob;
