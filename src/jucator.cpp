@@ -8,10 +8,10 @@ std::pair<int,int> jucator::get_pozitie() const {
     return {this->x,this->y};
 }
 
-void jucator::caracter_pozitie( int pos_x, int pos_y) {
-    this->x=pos_x;
-    this->y=pos_y;
-}
+// void jucator::caracter_pozitie( int pos_x, int pos_y) {
+//     this->x=pos_x;
+//     this->y=pos_y;
+// }
 
 
 jucator& jucator::operator=(const jucator& j) {
@@ -54,11 +54,16 @@ void jucator::verifica_viata() {
         this->viata=100;
 }
 
-char jucator::get_simbol() const {
-    return this->simbol;
+// char jucator::get_simbol() const {
+//     return this->simbol;
+// }
+
+void jucator::damage(caracter& c) {
+    c.set_viata(0);
 }
 
-void jucator::set_viata(int v) {
-    this->viata+=v;
-    verifica_viata();
-}
+
+// void jucator::set_viata(int v) {
+//     this->viata+=v;
+//     verifica_viata();
+// }

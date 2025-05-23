@@ -17,8 +17,8 @@ public:
 
     void adauga_obiect(const std::shared_ptr<obiect_aparare> &ob);
     void sterge_obiect(std::shared_ptr<obiect_aparare>& ob);
-    void afisare_obiecte_aparare() const;
-    std::vector<std::shared_ptr<obiect_aparare>> get_vector();
+    //void afisare_obiecte_aparare() const;
+    //std::vector<std::shared_ptr<obiect_aparare>> get_vector();
 
     static int introdu_cantitate();
 

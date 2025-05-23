@@ -70,12 +70,17 @@ void caracter::set_pozitie(int pos_x, int pos_y) {
     this->y=pos_y;
 };
 ///TODO: ALTA FUNCTIE CU SENS PENTRU A INCLOCUI CARACTER POZITIE
-void caracter::caracter_pozitie( int pos_x, int pos_y) {
-    this->x=pos_x;
-    this->y=pos_y;
-}
+// void caracter::caracter_pozitie( int pos_x, int pos_y) {
+//     this->x=pos_x;
+//     this->y=pos_y;
+// }
 char caracter::print_caracter() const {
     return this->simbol;
 }
+
+void caracter::set_viata(int v) {
+    this->viata=v;
+}
+
 
 

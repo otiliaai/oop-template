@@ -32,14 +32,14 @@ inventar& inventar::operator+=(const diamant& d) {
     this->comoara+=d.get_valoare();
     return *this;
 }
-void inventar::afisare_obiecte_aparare() const {
-    for (const auto& i : defense)
-        std::cout<<i->calc_putere()<<" ";
-}
+// void inventar::afisare_obiecte_aparare() const {
+//     for (const auto& i : defense)
+//         std::cout<<i->calc_putere()<<" ";
+// }
 
-std::vector<std::shared_ptr<obiect_aparare>> inventar::get_vector() {
-    return this->defense;
-}
+// std::vector<std::shared_ptr<obiect_aparare>> inventar::get_vector() {
+//     return this->defense;
+// }
 
 int inventar::introdu_cantitate() {
     int cantitate = 0;

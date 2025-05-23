@@ -21,7 +21,9 @@ public:
     friend std::ostream& operator<<(std::ostream &out,const caracter& ob);
     caracter& operator+(const caracter& ob);
 
-    virtual void caracter_pozitie( int pos_x, int pos_y) = 0;
+    virtual void damage(caracter& c) = 0;
+
+    void set_viata(int v);
 
     void set_pozitie(int pos_x, int pos_y);
     [[nodiscard]] char print_caracter() const;

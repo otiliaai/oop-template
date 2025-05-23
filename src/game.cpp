@@ -85,7 +85,7 @@ void game::verifica_status() {
 
      char optiune;
      bool inamic_viu = true;
-     const inamic* p = lab.get_inamic().get_obiect(x, y);
+    inamic* p = lab.get_inamic().get_obiect(x, y);
 
      if (p == nullptr) return;
 
@@ -117,6 +117,7 @@ void game::verifica_status() {
                                  inv.sterge_obiect(s);
                                  j.set_viata(s->calc_putere());
                                  inamic_viu = false;
+                                 j.damage(*lab.get_inamic().get_obiect(x,y));
                                  lab.get_inamic().sterge_obiecte(x, y);
                                  lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
                              } else {
@@ -157,7 +158,7 @@ void game::verifica_status() {
 
                          case '1': {
                              try {
-                                 j = j - (*p);
+                                 p->damage(j);
                                  j.verifica_viata();
                              }
                              catch (const ex_viata& e) {
@@ -231,9 +232,9 @@ void game::game_over() {
     this->running = false;
 }
 
-inventar &game::get_inventar() {
-    return this->inv;
-}
+// inventar &game::get_inventar() {
+//     return this->inv;
+// }
 
 void game::cumpara_obiecte() {
 
