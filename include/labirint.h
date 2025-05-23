@@ -25,8 +25,8 @@ public:
     void generare_labirint(int x, int y);
     labirint(int lungime, int latime);
     ~labirint();
-    labirint(const labirint& lab);
-    labirint& operator=(const labirint& lab);
+    labirint(const labirint& lab) =  delete;
+    labirint& operator=(const labirint& lab) = delete;
 
     void afiseaza() const;
     bool valid(int x, int y) const;

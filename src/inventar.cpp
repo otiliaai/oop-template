@@ -6,7 +6,10 @@
 #include <algorithm>
 #include "potiune.h"
 #include "generator.h"
-#include "windows.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 
 int inventar::comoara = 500;
 
@@ -69,7 +72,7 @@ void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
 }
 
 void inventar::sterge_obiect(std::shared_ptr<obiect_aparare>& ob) {
-    auto it = std::ranges::remove_if(defense,
+    const auto it = std::ranges::remove_if(defense,
         [&ob](const std::shared_ptr<obiect_aparare>& ptr) {
             return ptr == ob;
     }).begin();
@@ -104,7 +107,7 @@ bool inventar::suficiente(const std::shared_ptr<obiect_aparare> &ob) const {
 }
 
 std::shared_ptr<obiect_aparare> inventar::gaseste_obiect(const std::type_info& tip) {
-    for (auto& i : defense)
+    for (const auto& i : defense)
         if (typeid(*i) == tip)
             return i;
     return nullptr;
