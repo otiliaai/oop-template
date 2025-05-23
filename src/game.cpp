@@ -6,6 +6,9 @@
 #include "generator.h"
 #include "ex_insuficiente.h"
 #include "potiune_factory.h"
+#include "sabie_factory.h"
+#include "scut_factory.h"
+//#include "potiune_factory.h"
 // #include "windows.h"
 game* game::instance = nullptr;
 

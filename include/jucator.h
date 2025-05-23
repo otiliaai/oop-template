@@ -19,7 +19,7 @@ public:
     jucator& operator-(const inamic& i);
     jucator& operator-(const bombe& b);
     jucator& operator+(const inamic& i);
-    int get_viata() const;
+    int get_viata() const override;
     void verifica_viata();
     void afis_viata() const;
     // char get_simbol() const;
