@@ -21,9 +21,6 @@ public:
     void run();
     void actualizeaza_harta();
     void verifica_status();
-    // bool inamic_in_cale(int x, int y);
-    // bool diamant_in_cale(int x, int y);
-    // void omoara_inamic(inamic* i);
     void lupta_cu_inamicul(int x,int y);
     void colecteaza_diamant(int x,int y);
     void game_over();
@@ -33,6 +30,7 @@ public:
 
     static int introdu_cantitate();
     void depaseste_bomba(int x,int y);
+    void protectie_bomba();
 
 };
 #endif //GAME_H

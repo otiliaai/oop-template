@@ -29,7 +29,7 @@ bool game::pozitie_valida(const labirint &lab, int x, int y) {
 void game::run() {
     cumpara_obiecte();
     while (running) {
-        system("cls");
+        //system("cls");
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
@@ -45,19 +45,20 @@ void game::actualizeaza_harta() {
     int x_nou = x_vechi;
     int y_nou = y_vechi;
 
-    int key = _getch();
+    //int key = _getch();
+    int key = 5;
 
-    if (key == 224) {
-        key = _getch();
-
-        switch (key) {
-            case 72: x_nou -= 1; break;
-            case 80: x_nou += 1; break;
-            case 75: y_nou -= 1; break;
-            case 77: y_nou += 1; break;
-            default: std::cout<<"Ai apasat o tasta gresita!";
-        }
-    }
+    // if (key == 224) {
+    //    // key = _getch();
+    //
+    //     switch (key) {
+    //         case 72: x_nou -= 1; break;
+    //         case 80: x_nou += 1; break;
+    //         case 75: y_nou -= 1; break;
+    //         case 77: y_nou += 1; break;
+    //         default: std::cout<<"Ai apasat o tasta gresita!";
+    //     }
+    // }
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
         j.set_pozitie(x_nou, y_nou);
@@ -74,7 +75,7 @@ void game::actualizeaza_harta() {
 }
 void game::verifica_status() {
     if (j.get_pozitie().first==lab.get_dimensiuni().first-2 && j.get_pozitie().second==lab.get_dimensiuni().second-2) {
-        system("cls");
+        //system("cls");
         std::cout<<"AI CASTIGAT JOCUL";
         running = false;
     }
@@ -90,7 +91,7 @@ void game::verifica_status() {
      if (p == nullptr) return;
 
      while (inamic_viu) {
-         system("cls");
+         //system("cls");
          inv.afisare();
          lab.afiseaza();
          j.afis_viata();
@@ -102,7 +103,7 @@ void game::verifica_status() {
          switch (optiune) {
              case 'l': {
                  while (alegere) {
-                     system("cls");
+                     //system("cls");
                      inv.afisare();
                      lab.afiseaza();
                      j.afis_viata();
@@ -113,7 +114,7 @@ void game::verifica_status() {
 
                          case '1': {
                              auto s = inv.gaseste_obiect(typeid(sabie));
-                             if (s != nullptr) {
+                             if (inv.suficiente(s)) {
                                  inv.sterge_obiect(s);
                                  j.set_viata(s->calc_putere());
                                  inamic_viu = false;
@@ -121,21 +122,21 @@ void game::verifica_status() {
                                  lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
                              } else {
                                  std::cout<<"\nNU AI SUFICIENTE SABII !!!\n";
-                                 Sleep(1000);
+                                // Sleep(1000);
                              }
                              alegere = false;
                              break;
                          }
 
                          case '2': {
-                             system("cls");
+                             //system("cls");
                              cumpara_obiecte();
                              break;
                          }
 
                          default: {
                              std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
-                             Sleep(1000);
+                             //Sleep(1000);
                          }
 
                      }
@@ -145,7 +146,7 @@ void game::verifica_status() {
              case 'c': {
                  bool f = true;
                  while (alegere) {
-                     system("cls");
+                     //system("cls");
                      inv.afisare();
                      lab.afiseaza();
                      j.afis_viata();
@@ -172,7 +173,7 @@ void game::verifica_status() {
                          case '2': {
                              auto pn = inv.gaseste_obiect(typeid(potiune));
                              try {
-                                 if (pn != nullptr) {
+                                 if (inv.suficiente(pn)) {
                                      inv.sterge_obiect(pn);
                                      j.set_viata(pn->calc_putere());
                                  }
@@ -180,7 +181,7 @@ void game::verifica_status() {
                              }
                              catch (const ex_insuficiente& e){
                                  std::cout<<e.what()<<"\n";
-                                 Sleep(1000);
+                                 //Sleep(1000);
                              }
                              alegere = false;
                              break;
@@ -188,14 +189,14 @@ void game::verifica_status() {
 
 
                          case '3': {
-                             system("cls");
+                             //system("cls");
                              cumpara_obiecte();
                              break;
                          }
 
                          default: {
                              std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
-                             Sleep(1000);
+                             //Sleep(1000);
                          }
                      }
                  }
@@ -208,7 +209,7 @@ void game::verifica_status() {
              }
              default: {
                  std::cout<< "Ai apasat o tasta gresita";
-                 Sleep(1000);
+                 //Sleep(1000);
              }
          }
      }
@@ -226,7 +227,7 @@ void game::colecteaza_diamant(int x,int y) {
 
 
 void game::game_over() {
-    system("cls");
+   // system("cls");
     std::cout<<"\nGAME OVER!"<<std::endl;
     this->running = false;
 }
@@ -241,7 +242,7 @@ void game::cumpara_obiecte() {
 
     bool cumparare = true;
     while (cumparare) {
-        system("cls");
+        //system("cls");
         inv.afisare();
         j.afis_viata();
         std::cout<<"\nCUMPARA:\n";
@@ -278,15 +279,15 @@ void game::cumpara_obiecte() {
                 break;
             }
             case '4': {
-                system("cls");
+                //system("cls");
                 std::cout<<"\nAi actualizati inventarul cu succes!\n";
-                Sleep(1000);
+               // Sleep(1000);
                 cumparare = false;
                 break;
             }
             default: {
                 std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
-                Sleep(1000);
+               // Sleep(1000);
             }
         }
     }
@@ -310,7 +311,7 @@ void game::depaseste_bomba(int x,int y) {
     bool alegere = true;
     char ch;
     while (alegere) {
-        system("cls");
+        //system("cls");
         inv.afisare();
         lab.afiseaza();
         j.afis_viata();
@@ -329,7 +330,7 @@ void game::depaseste_bomba(int x,int y) {
             case '2' : {
                 try {
                     auto s = inv.gaseste_obiect(typeid(scut));
-                    if (s != nullptr) {
+                    if (inv.suficiente((s))) {
                         j = j-(*b);
                         inv.sterge_obiect(s);
                         lab.get_bomba().sterge_obiecte(x, y);
@@ -339,12 +340,12 @@ void game::depaseste_bomba(int x,int y) {
                 }
                 catch (const std::exception& e) {
                     std::cout<<e.what();
-                    Sleep(1000);
+                    //Sleep(1000);
                 }
                 break;
             }
             case '3': {
-                system("cls");
+                //system("cls");
                 cumpara_obiecte();
                 alegere = false;
                 break;
@@ -352,7 +353,7 @@ void game::depaseste_bomba(int x,int y) {
 
             default: {
                 std::cout<<"Ai apasat o tasta gresita. Incearca din nou";
-                Sleep(1000);
+                //Sleep(1000);
             }
         }
     }
