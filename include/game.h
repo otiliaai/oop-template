@@ -27,8 +27,6 @@ public:
     inventar& get_inventar();
 
     void cumpara_obiecte();
-
-    static int introdu_cantitate();
     void depaseste_bomba(int x,int y);
     void protectie_bomba();
 

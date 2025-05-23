@@ -21,6 +21,8 @@ public:
     void afisare_obiecte_aparare() const;
     std::vector<std::shared_ptr<obiect_aparare>> get_vector();
 
+    static int introdu_cantitate();
+
     int numar_sabii() const;
     int numar_scuturi() const;
     int numar_potiuni () const;

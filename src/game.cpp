@@ -45,20 +45,19 @@ void game::actualizeaza_harta() {
     int x_nou = x_vechi;
     int y_nou = y_vechi;
 
-    //int key = _getch();
-    int key = 5;
+    int key = _getch();
 
-    // if (key == 224) {
-    //    // key = _getch();
-    //
-    //     switch (key) {
-    //         case 72: x_nou -= 1; break;
-    //         case 80: x_nou += 1; break;
-    //         case 75: y_nou -= 1; break;
-    //         case 77: y_nou += 1; break;
-    //         default: std::cout<<"Ai apasat o tasta gresita!";
-    //     }
-    // }
+    if (key == 224) {
+        key = _getch();
+
+        switch (key) {
+            case 72: x_nou -= 1; break;
+            case 80: x_nou += 1; break;
+            case 75: y_nou -= 1; break;
+            case 77: y_nou += 1; break;
+            default: std::cout<<"Ai apasat o tasta gresita!";
+        }
+    }
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
         j.set_pozitie(x_nou, y_nou);
@@ -255,27 +254,15 @@ void game::cumpara_obiecte() {
 
         switch (optiune) {
             case '1': {
-                int c = introdu_cantitate();
-                for (int i = 0; i < c; i++) {
-                    auto s = std::make_shared<sabie>();
-                    this->inv.adauga_obiect(s);
-                }
+                inv.adauga_obiect(std::make_shared<sabie>());
                 break;
             }
             case '2': {
-                int c = introdu_cantitate();
-                for (int i = 0; i < c; i++) {
-                    auto sc = std::make_shared<scut>();
-                    this->inv.adauga_obiect(sc);
-                }
+                inv.adauga_obiect(std::make_shared<scut>());
                 break;
             }
             case '3': {
-                int c = introdu_cantitate();
-                for (int i = 0; i < c; i++) {
-                    auto p = std::make_shared<potiune>();
-                    this->inv.adauga_obiect(p);
-                }
+                inv.adauga_obiect(std::make_shared<potiune>());
                 break;
             }
             case '4': {
@@ -291,13 +278,6 @@ void game::cumpara_obiecte() {
             }
         }
     }
-}
-
-int game::introdu_cantitate() {
-    int cantitate = 0;
-    std::cout<<"Cantitate: ";
-    std::cin>>cantitate;
-    return cantitate;
 }
 
 jucator& operator+(jucator& j, const obiect_aparare& ob) {

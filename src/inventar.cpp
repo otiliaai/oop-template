@@ -21,9 +21,8 @@ void inventar::afisare() const {
 
 
 void inventar::verifica_cont(int suma) {
-    if (comoara-suma<0) {
+    if (comoara-suma<0)
         throw ex_bani("\nNU AI SUFICIENTI BANI.\n");
-    }
 }
 
 inventar& inventar::operator+=(const diamant& d) {
@@ -42,16 +41,26 @@ void inventar::afisare_obiecte_aparare() const {
 std::vector<std::shared_ptr<obiect_aparare>> inventar::get_vector() {
     return this->defense;
 }
+
+int inventar::introdu_cantitate() {
+    int cantitate = 0;
+    std::cout<<"Cantitate: ";
+    std::cin>>cantitate;
+    return cantitate;
+}
 ///upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
-    try {
-        verifica_cont(ob->get_pret());
-        this->defense.push_back(ob);
-        this->comoara-=ob->get_pret();
-    }
-    catch (const ex_bani& e) {
-        std::cout<<e.what()<<"\n";
-        Sleep(1000);
+    int c = introdu_cantitate();
+    for (int i = 0; i < c; i++) {
+        try {
+            verifica_cont(ob->get_pret());
+            this->defense.push_back(ob);
+            this->comoara-=ob->get_pret();
+        }
+        catch (const ex_bani& e) {
+            std::cout<<e.what()<<"\n";
+            break;
+        }
     }
 
 }
