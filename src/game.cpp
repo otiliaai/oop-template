@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include "game.h"
 #include "sabie.h"
 #include "scut.h"
