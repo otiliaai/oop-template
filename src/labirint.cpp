@@ -29,6 +29,22 @@ void labirint::generare_labirint(int x, int y) {
 
 }
 
+labirint::labirint(const labirint &lab) : lungime(), latime() {
+    this->harta = lab.harta;
+    this->inamici =  lab.inamici;
+    this->bomba =  lab.bomba;
+    this->diamante = lab.diamante;
+}
+
+labirint& labirint::operator=(const labirint& lab) {
+    this->harta = lab.harta;
+    this->inamici =  lab.inamici;
+    this->bomba =  lab.bomba;
+    this->diamante = lab.diamante;
+    return *this;
+
+}
+
 void labirint::afiseaza() const {
     for (const auto& i : harta) {
         for (auto& j : i)

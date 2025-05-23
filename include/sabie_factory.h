@@ -1,6 +1,6 @@
 #ifndef SABIE_FACTORY_H
 #define SABIE_FACTORY_H
-#include "memory"
+#include <memory>
 #include "object_factory.h"
 #include "sabie.h"
 

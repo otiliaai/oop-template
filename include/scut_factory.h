@@ -1,6 +1,6 @@
 #ifndef SCUT_FACTORY_H
 #define SCUT_FACTORY_H
-#include "memory"
+#include <memory>
 #include "object_factory.h"
 #include "scut.h"
 class scut_factory : public object_factory {

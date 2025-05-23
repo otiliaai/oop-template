@@ -1,7 +1,7 @@
 #ifndef POTIUNE_FACTORY_H
 #define POTIUNE_FACTORY_H
 #include "potiune.h"
-#include "memory"
+#include <memory>
 #include "object_factory.h"
 
 class potiune_factory : public object_factory{

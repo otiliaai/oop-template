@@ -34,9 +34,8 @@ caracter::~caracter() {
 }
 ///operator =
 caracter& caracter::operator=(const caracter& org){
-    if (this == &org) {
+    if (this == &org)
         return *this;
-    }
     this->x=org.x;
     this->y=org.y;
     this->viata=org.viata;
@@ -70,7 +69,7 @@ void caracter::set_pozitie(int pos_x, int pos_y) {
     this->x=pos_x;
     this->y=pos_y;
 };
-
+///TODO: ALTA FUNCTIE CU SENS PENTRU A INCLOCUI CARACTER POZITIE
 void caracter::caracter_pozitie( int pos_x, int pos_y) {
     this->x=pos_x;
     this->y=pos_y;

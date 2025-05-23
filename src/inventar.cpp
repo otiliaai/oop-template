@@ -30,7 +30,7 @@ inventar& inventar::operator+=(const diamant& d) {
     return *this;
 }
 void inventar::afisare_obiecte_aparare() const {
-    for (auto& i : defense)
+    for (const auto& i : defense)
         std::cout<<i->calc_putere()<<" ";
 }
 

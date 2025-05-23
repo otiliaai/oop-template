@@ -7,7 +7,7 @@ protected:
   int x,y;
   char simbol;
   public:
-    obiect_labirint() = default;
+    obiect_labirint();
     virtual ~obiect_labirint() = default;
     virtual char print_caracter() const = 0;
     void set_pozitie(int x,int y);

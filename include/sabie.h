@@ -4,7 +4,7 @@
 class sabie : public obiect_aparare{
   public:
     sabie();
-    int calc_putere() const;
+    int calc_putere() const override;
     ~sabie() = default;
  };
 #endif //SABIE_H

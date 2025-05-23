@@ -2,7 +2,7 @@
 #define INVENTAR_H
 #include <vector>
 #include "diamant.h"
-#include "memory"
+#include <memory>
 #include "ex_bani.h"
 #include "obiect_aparare.h"
 class inventar {
