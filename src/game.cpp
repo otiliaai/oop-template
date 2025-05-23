@@ -115,9 +115,7 @@ void game::verifica_status() {
                              auto s = inv.gaseste_obiect(typeid(sabie));
                              if (inv.suficiente(s)) {
                                  inv.sterge_obiect(s);
-                                 j.set_viata(s->calc_putere());
                                  inamic_viu = false;
-                                 j.damage(*lab.get_inamic().get_obiect(x,y));
                                  lab.get_inamic().sterge_obiecte(x, y);
                                  lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
                              } else {
@@ -232,10 +230,6 @@ void game::game_over() {
     this->running = false;
 }
 
-// inventar &game::get_inventar() {
-//     return this->inv;
-// }
-
 void game::cumpara_obiecte() {
 
     char optiune;
@@ -255,15 +249,18 @@ void game::cumpara_obiecte() {
 
         switch (optiune) {
             case '1': {
-                inv.adauga_obiect(std::make_shared<sabie>());
+                sabie_factory sf;
+                inv.adauga_obiect(sf.creare_ob_aparare());
                 break;
             }
             case '2': {
-                inv.adauga_obiect(std::make_shared<scut>());
+                scut_factory scf;
+                inv.adauga_obiect(scf.creare_ob_aparare());
                 break;
             }
             case '3': {
-                inv.adauga_obiect(std::make_shared<potiune>());
+                potiune_factory pf;
+                inv.adauga_obiect(pf.creare_ob_aparare());
                 break;
             }
             case '4': {

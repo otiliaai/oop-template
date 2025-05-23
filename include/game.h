@@ -3,7 +3,9 @@
 #include "jucator.h"
 #include "labirint.h"
 #include "inventar.h"
-#include "generator.h"
+#include "sabie_factory.h"
+#include "scut_factory.h"
+#include "potiune_factory.h"
 
 class game {
     static game* instance;

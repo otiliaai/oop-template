@@ -24,9 +24,10 @@ public:
     virtual void damage(caracter& c) = 0;
 
     void set_viata(int v);
-
+    int get_viata() const;
     void set_pozitie(int pos_x, int pos_y);
     [[nodiscard]] char print_caracter() const;
+
 };
 
 

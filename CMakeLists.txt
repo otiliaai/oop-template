@@ -142,21 +142,28 @@ add_executable(${MAIN_EXECUTABLE_NAME} main.cpp ${SOURCES}
         include/scut.h
         include/potiune.h
         include/bombe.h
+        include/sabie_factory.h
+        include/scut_factory.h
+        include/potiune_factory.h
+        include/object_factory.h
         include/ex_insuficiente.h
+        include/diamant.h
+        include/game.h
+        include/inventar.h
+        include/labirint.h
         src/jucator.cpp
         src/potiune.cpp
         src/inamic.cpp
         src/caracter.cpp
         src/bombe.cpp
-        include/diamant.h
         src/diamant.cpp
-        include/game.h
         src/game.cpp
         src/ex_insuficiente.cpp
         src/inventar.cpp
-        include/inventar.h
-        include/labirint.h
         src/labirint.cpp
+        src/scut_factory.cpp
+        src/sabie_factory.cpp
+        src/potiune_factory.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

@@ -18,5 +18,5 @@ int inamic::get_viata() const{
 }
 
 void inamic::damage(caracter& c) {
-    c.set_viata(20);
+    c.set_viata(c.get_viata()-50);
 }
