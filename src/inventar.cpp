@@ -32,14 +32,6 @@ inventar& inventar::operator+=(const diamant& d) {
     this->comoara+=d.get_valoare();
     return *this;
 }
-// void inventar::afisare_obiecte_aparare() const {
-//     for (const auto& i : defense)
-//         std::cout<<i->calc_putere()<<" ";
-// }
-
-// std::vector<std::shared_ptr<obiect_aparare>> inventar::get_vector() {
-//     return this->defense;
-// }
 
 int inventar::introdu_cantitate() {
     int cantitate = 0;
@@ -96,21 +88,22 @@ int inventar::numar_potiuni() const {
 bool inventar::suficiente(const std::shared_ptr<obiect_aparare> &ob) const {
     if (std::dynamic_pointer_cast<scut>(ob))
         return this->numar_scuturi()>0;
-    else
-        if (std::dynamic_pointer_cast<sabie>(ob))
-            return this->numar_sabii()>0;
-    else
-        if (std::dynamic_pointer_cast<potiune>(ob))
+    if (std::dynamic_pointer_cast<sabie>(ob))
+        return this->numar_sabii()>0;
+    if (std::dynamic_pointer_cast<potiune>(ob))
             return this->numar_potiuni()>0;
 
     return false;
 }
 
 std::shared_ptr<obiect_aparare> inventar::gaseste_obiect(const std::type_info& tip) {
-    for (const auto& i : defense)
-        if (typeid(*i) == tip)
+    for (const auto& i : defense) {
+        auto& obj = *i;
+        if (typeid(obj) == tip)
             return i;
+    }
     return nullptr;
+
 }
 
 
