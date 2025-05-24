@@ -177,7 +177,6 @@ void game::verifica_status() {
                              }
                              catch (const ex_insuficiente& e){
                                  std::cout<<e.what()<<"\n";
-                                 //Sleep(1000);
                              }
                              alegere = false;
                              break;
