@@ -8,7 +8,7 @@ class bombe: public obiect_labirint {
   int dauna;
   public:
     bombe();
-    ~bombe() = default;
+    ~bombe() override = default;
     [[nodiscard]] int get_dauna() const;
 
     void impact_jucator(jucator& j) const override;
