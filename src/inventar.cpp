@@ -31,11 +31,33 @@ inventar& inventar::operator+=(const diamant& d) {
     return *this;
 }
 
+// int inventar::introdu_cantitate() {
+//     int cantitate = 0;
+//     std::cout<<"Cantitate: ";
+//     std::cin>>cantitate;
+//     return cantitate;
+// }
+
 int inventar::introdu_cantitate() {
     int cantitate = 0;
-    std::cout<<"Cantitate: ";
-    std::cin>>cantitate;
-    return cantitate;
+    while (true) {
+        std::cout << "Cantitate: ";
+        std::cin >> cantitate;
+
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Input invalid. Te rog sa introduci un numar intreg pozitiv.\n";
+        }
+        else if (cantitate <= 0) {
+            std::cin.ignore(10000, '\n');
+            std::cout << "Cantitatea trebuie sa fie un numar pozitiv mai mare ca zero.\n";
+        }
+        else {
+            std::cin.ignore(10000, '\n');
+            return cantitate;
+        }
+    }
 }
 ///upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
