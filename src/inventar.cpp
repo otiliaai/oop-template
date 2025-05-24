@@ -6,9 +6,7 @@
 #include <algorithm>
 #include "potiune.h"
 #include "generator.h"
-#ifdef _WIN32
-//#include <windows.h>
-#endif
+#include <iostream>
 
 
 int inventar::comoara = 500;

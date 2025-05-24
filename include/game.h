@@ -3,9 +3,6 @@
 #include "jucator.h"
 #include "labirint.h"
 #include "inventar.h"
-// #include "sabie_factory.h"
-// #include "scut_factory.h"
-// #include "potiune_factory.h"
 
 class game {
     static game* instance;
@@ -25,13 +22,11 @@ public:
     void actualizeaza_harta();
     void verifica_status();
     void lupta_cu_inamicul(int x,int y);
-    void colecteaza_diamant(int x,int y);
-    void game_over();
-    // inventar& get_inventar();
-
-    void cumpara_obiecte();
     void depaseste_bomba(int x,int y);
-    void protectie_bomba();
+    void colecteaza_diamant(int x,int y);
+    void cumpara_obiecte();
+    void game_over();
+
 
 };
 #endif //GAME_H

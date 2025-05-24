@@ -9,7 +9,6 @@ protected:
     int x,y;
     int viata;
 public:
-    ///TODO: ALTA FUNCTIE VIRTUALA PENTRU A FACE MOSTENIREA CU SENS
     caracter();
     caracter(char simbol,int x,int y,int viata);
     caracter(int x,int y,int viata);
@@ -25,7 +24,7 @@ public:
 
     void set_viata(int v);
 
-    virtual int get_viata() const;
+    int get_viata() const;
     void set_pozitie(int pos_x, int pos_y);
     [[nodiscard]] char print_caracter() const;
 

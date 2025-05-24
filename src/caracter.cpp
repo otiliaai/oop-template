@@ -14,7 +14,7 @@ caracter::caracter(char simbol,int x,int y,int viata) {
     this->viata=viata;
     this->simbol=simbol;
 }
-///constructor supraincarcat->il voi folosi ptu inamic
+///constructor supraincarcat
 caracter::caracter(int x,int y,int viata): simbol('S') {
     this->x = x;
     this->y = y;
@@ -58,7 +58,7 @@ std::ostream& operator<<(std::ostream &out,const caracter& ob) {
     out<<"Viata: "<<ob.viata << "\n";
     return out;
 }
-/// supraincarea operatorului + pentru a putea aduna
+/// supraincarc operatorului + pentru a putea aduna
 /// viata inamicului la viata jucatorului dupa ce acesta moare
 caracter& caracter::operator+(const caracter& ob) {
     this->viata+=ob.viata;

@@ -4,6 +4,7 @@
 #include <ctime>
 #include "diamant.h"
 #include "generator.h"
+#include <iostream>
 
 void labirint::generare_labirint(int x, int y) {
     harta[x][y]='_';
@@ -16,7 +17,7 @@ void labirint::generare_labirint(int x, int y) {
     for (const auto& directie: directii) {
         int dx = directie.first;
         int dy = directie.second;
-        //coordonatele noii celule
+
         int xx = x + dx;
         int yy = y + dy;
         if (valid(xx,yy)) {

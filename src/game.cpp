@@ -1,4 +1,3 @@
-#ifdef _WIN32
 #include "game.h"
 #include "sabie.h"
 #include "scut.h"
@@ -17,14 +16,8 @@ game* game::get_instance() {
     return instance;
 }
 
-game::game() :lab(15,35){
+game::game() :lab(20,45){
     this->running = true;
-}
-
-bool game::pozitie_valida(const labirint &lab, int x, int y) {
-    int lng = lab.get_dimensiuni().first;
-    int lat = lab.get_dimensiuni().second;
-    return  x > 0 && x < lng && y > 0 && y < lat && lab.drum_liber(x,y);
 }
 
 void game::run() {
@@ -37,6 +30,12 @@ void game::run() {
         actualizeaza_harta();
         verifica_status();
     }
+}
+
+bool game::pozitie_valida(const labirint &lab, int x, int y) {
+    int lng = lab.get_dimensiuni().first;
+    int lat = lab.get_dimensiuni().second;
+    return  x > 0 && x < lng && y > 0 && y < lat && lab.drum_liber(x,y);
 }
 
 void game::actualizeaza_harta() {
@@ -171,7 +170,8 @@ void game::verifica_status() {
                              try {
                                  if (inv.suficiente(pn)) {
                                      inv.sterge_obiect(pn);
-                                     j.set_viata(pn->calc_putere());
+                                     j.set_viata(j.get_viata()+pn->calc_putere());
+                                     j.verifica_viata();
                                  }
                                  else throw ex_insuficiente("INSUFICIENTE!");
                              }
@@ -215,6 +215,7 @@ void game::verifica_status() {
 void game::colecteaza_diamant(int x,int y) {
     const diamant* d = lab.get_diamant().get_obiect(x,y);
     if (!d) return;
+    d->impact_jucator(j);
     inv+=(*d);
     lab.get_diamant().sterge_obiecte(x,y);
     std::pair<int,int> poz = j.get_pozitie();
@@ -277,7 +278,8 @@ void game::cumpara_obiecte() {
 }
 
 jucator& operator+(jucator& j, const obiect_aparare& ob) {
-    j.set_viata(j.get_viata()+(100-ob.calc_putere()));
+    j.set_viata(j.get_viata()+(ob.calc_putere()));
+    j.verifica_viata();
     return j;
 }
 
@@ -289,16 +291,24 @@ void game::depaseste_bomba(int x,int y) {
     while (alegere) {
         //system("cls");
         inv.afisare();
-        lab.afiseaza();
         j.afis_viata();
+        lab.afiseaza();
         std::cout<<"\nAi o bomba in cale. Daca continui sa mergi, bomba explodeaza. Poti diminua efectele asupra vietii "
-               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Actualizeaza inventar\nOptiune: ";
+               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o licoare\n4. Actualizeaza inventar\nOptiune: ";
         std::cin>>ch;
         switch (ch) {
 
             case '1': {
-                b->explodeaza(j);
-                game_over();
+                b->impact_jucator(j);
+                try {
+                    j.verifica_viata();
+                }
+                catch (const ex_viata& e) {
+                    std::cout<<"\n"<<e.what()<<"\n";
+                    game_over();
+                }
+                lab.get_bomba().sterge_obiecte(x, y);
+                lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
                 alegere = false;
                 break;
             }
@@ -320,7 +330,24 @@ void game::depaseste_bomba(int x,int y) {
                 }
                 break;
             }
-            case '3': {
+            case '3' : {
+                auto pn = inv.gaseste_obiect(typeid(potiune));
+                try {
+                    if (inv.suficiente(pn)) {
+                        inv.sterge_obiect(pn);
+                        j.set_viata(j.get_viata()+pn->calc_putere());
+                        j.verifica_viata();
+                        alegere = false;
+                    }
+                    else throw ex_insuficiente("INSUFICIENTE!");
+                }
+                catch (const ex_insuficiente& e){
+                    std::cout<<e.what()<<"\n";
+                    //Sleep(1000);
+                }
+                break;
+            }
+            case '4': {
                 //system("cls");
                 cumpara_obiecte();
                 alegere = false;
@@ -334,5 +361,4 @@ void game::depaseste_bomba(int x,int y) {
         }
     }
 }
-#endif // _WIN32
 

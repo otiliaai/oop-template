@@ -1,6 +1,8 @@
 #ifndef OBIECT_LABIRINT_H
 #define OBIECT_LABIRINT_H
 
+class jucator;
+
 class obiect_labirint{
 protected:
   int x,y;
@@ -8,8 +10,10 @@ protected:
   public:
     obiect_labirint();
     virtual ~obiect_labirint() = default;
-    virtual char print_caracter() const = 0;
+    char print_caracter() const;
     void set_pozitie(int x,int y);
+
+    virtual void impact_jucator(jucator& j) const = 0;
 
 
   };

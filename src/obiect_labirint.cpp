@@ -7,4 +7,6 @@ obiect_labirint::obiect_labirint(): x(0),y(0),simbol('.') {}
    this->y=pos_y;
  };
 
-
+char  obiect_labirint::print_caracter() const {
+    return this->simbol;
+}

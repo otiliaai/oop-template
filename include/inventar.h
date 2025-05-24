@@ -5,6 +5,8 @@
 #include <memory>
 #include "ex_bani.h"
 #include "obiect_aparare.h"
+#include "caracter.h"
+#include "inamic.h"
 class inventar {
     static int comoara ;
     std::vector<std::shared_ptr<obiect_aparare>> defense;
@@ -17,8 +19,6 @@ public:
 
     void adauga_obiect(const std::shared_ptr<obiect_aparare> &ob);
     void sterge_obiect(std::shared_ptr<obiect_aparare>& ob);
-    //void afisare_obiecte_aparare() const;
-    //std::vector<std::shared_ptr<obiect_aparare>> get_vector();
 
     static int introdu_cantitate();
 

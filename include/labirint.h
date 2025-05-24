@@ -4,6 +4,9 @@
 #include <vector>
 #include <memory>
 #include "bombe.h"
+#include "caracter.h"
+#include "inamic.h"
+
 
 class inamic;
 class diamant;
@@ -16,15 +19,14 @@ class generator;
 class labirint {
     std::vector<std::vector<char>> harta;
     const int lungime, latime;
-
     generator<inamic>* inamici;
     generator<diamant>* diamante;
     generator<bombe>* bomba;
 
 public:
-    void generare_labirint(int x, int y);
     labirint(int lungime, int latime);
     ~labirint();
+    void generare_labirint(int x, int y);
     labirint(const labirint& lab) =  delete;
     labirint& operator=(const labirint& lab) = delete;
 
