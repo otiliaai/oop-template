@@ -1,3 +1,389 @@
+// #include "game.h"
+// #include "sabie.h"
+// #include "scut.h"
+// #include "obiect_aparare.h"
+// #include "generator.h"
+// #include "ex_insuficiente.h"
+// #include "potiune_factory.h"
+// #include "sabie_factory.h"
+// #include "scut_factory.h"
+// game* game::instance = nullptr;
+//
+// game* game::get_instance() {
+//     if (instance == nullptr) {
+//         instance = new game();
+//     }
+//     return instance;
+// }
+//
+// game::game() :lab(10,10){
+//     this->running = true;
+// }
+//
+// void game::run() {
+//     cumpara_obiecte();
+//     while (running) {
+//         //system("cls");
+//         inv.afisare();
+//         j.afis_viata();
+//         lab.afiseaza();
+//         actualizeaza_harta();
+//         verifica_status();
+//     }
+// }
+//
+// bool game::pozitie_valida(const labirint &lab, int x, int y) {
+//     int lng = lab.get_dimensiuni().first;
+//     int lat = lab.get_dimensiuni().second;
+//     return  x > 0 && x < lng && y > 0 && y < lat && lab.drum_liber(x,y);
+// }
+//
+// void game::actualizeaza_harta() {
+//     int x_vechi = j.get_pozitie().first;
+//     int y_vechi = j.get_pozitie().second;
+//
+//     int x_nou = x_vechi;
+//     int y_nou = y_vechi;
+//
+//     char key;
+//     std::cin >> key;
+//     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+//
+//
+//         switch (key) {
+//             case 'w': x_nou -= 1; break;
+//             case 's': x_nou += 1; break;
+//             case 'a': y_nou -= 1; break;
+//             case 'd': y_nou += 1; break;
+//             default: std::cout<<"\nAi apasat o tasta gresita!\n";
+//         }
+//
+//     if (pozitie_valida(lab, x_nou, y_nou)) {
+//         j.set_pozitie(x_nou, y_nou);
+//         lab.ajusteaza_harta(j, x_vechi, y_vechi, x_nou, y_nou);
+//     } else {
+//         if (lab.get_inamic().obiect_in_cale(x_nou, y_nou))
+//             lupta_cu_inamicul(x_nou, y_nou);
+//         if (lab.get_diamant().obiect_in_cale(x_nou, y_nou))
+//             colecteaza_diamant(x_nou, y_nou);
+//         if (lab.get_bomba().obiect_in_cale(x_nou, y_nou))
+//             depaseste_bomba(x_nou, y_nou);
+//     }
+//
+// }
+// void game::verifica_status() {
+//     if (j.get_pozitie().first==lab.get_dimensiuni().first-2 && j.get_pozitie().second==lab.get_dimensiuni().second-2) {
+//         //system("cls");
+//         std::cout<<"\nAI CASTIGAT JOCUL\n";
+//         running = false;
+//     }
+// }
+//
+//
+//  void game::lupta_cu_inamicul(int x, int y) {
+//
+//      char optiune;
+//      bool inamic_viu = true;
+//     inamic* p = lab.get_inamic().get_obiect(x, y);
+//
+//      if (p == nullptr) return;
+//
+//      while (inamic_viu) {
+//          //system("cls");
+//          inv.afisare();
+//          lab.afiseaza();
+//          j.afis_viata();
+//          std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
+//          std::cout<<"\nOptiune: ";
+//          std::cin >> optiune;
+//          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//          bool alegere = true;
+//          char op;
+//          switch (optiune) {
+//              case 'l': {
+//                  while (alegere) {
+//                      //system("cls");
+//                      inv.afisare();
+//                      lab.afiseaza();
+//                      j.afis_viata();
+//                      std::cout<<"\n1. Foloseste sabia\n2. Actualizeaza inventarul\nOptiune: ";
+//                      std::cin >> op;
+//                      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+//
+//
+//                      switch (op) {
+//
+//                          case '1': {
+//                              auto s = inv.gaseste_obiect(typeid(sabie));
+//                              if (inv.suficiente(s)) {
+//                                  inv.sterge_obiect(s);
+//                                  inamic_viu = false;
+//                                  lab.get_inamic().sterge_obiecte(x, y);
+//                                  lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+//                              } else {
+//                                  std::cout<<"\nNU AI SUFICIENTE SABII !!!\n";
+//                                 // Sleep(1000);
+//                              }
+//                              alegere = false;
+//                              break;
+//                          }
+//
+//                          case '2': {
+//                              //system("cls");
+//                             ///// cumpara_obiecte();
+//                              alegere = false;
+//                              break;
+//                          }
+//
+//                          default: {
+//                              std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
+//                              alegere = false;
+//                              break;
+//                          }
+//
+//                      }
+//                  }
+//                  break;
+//              }
+//              case 'c': {
+//                  bool f = true;
+//                  while (alegere) {
+//                      //system("cls");
+//                      inv.afisare();
+//                      lab.afiseaza();
+//                      j.afis_viata();
+//                      std::cout<<"\nIn continuare ai doua optiuni: \n1. Continua si pierde 70% din viata ta"
+//                    "\n2. Bea o potiune pentru a castiga mai multa viata\n3. Actualizeaza inventarul\nOptiune: ";
+//                      std::cin >> op;
+//                      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+//
+//
+//                      switch (op) {
+//
+//                          case '1': {
+//                              try {
+//                                  p->damage(j);
+//                                  j.verifica_viata();
+//                              }
+//                              catch (const ex_viata& e) {
+//                                  std::cout<<e.what()<<"\n";
+//                                  game_over();
+//                              }
+//                              f = false;
+//                              alegere = false;
+//                              break;
+//                          }
+//
+//                          case '2': {
+//                              auto pn = inv.gaseste_obiect(typeid(potiune));
+//                              try {
+//                                  if (inv.suficiente(pn)) {
+//                                      inv.sterge_obiect(pn);
+//                                      j.set_viata(j.get_viata()+pn->calc_putere());
+//                                      j.verifica_viata();
+//                                  }
+//                                  else throw ex_insuficiente("INSUFICIENTE!");
+//                              }
+//                              catch (const ex_insuficiente& e){
+//                                  std::cout<<e.what()<<"\n";
+//                              }
+//                              alegere = false;
+//                              break;
+//                          }
+//
+//
+//                          case '3': {
+//                              //system("cls");
+//                              /////////cumpara_obiecte();
+//                              alegere = false;
+//                              break;
+//                          }
+//
+//                          default: {
+//                              std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
+//                              alegere = false;
+//                              break;
+//                          }
+//                      }
+//                  }
+//                  if (!f) {
+//                      inamic_viu = false;
+//                      lab.get_inamic().sterge_obiecte(x, y);
+//                      lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+//                  }
+//                  break;
+//              }
+//              default: {
+//                  std::cout<< "\nAi apasat o tasta gresita\n";
+//                  alegere = false;
+//                  break;
+//                  //Sleep(1000);
+//              }
+//          }
+//      }
+//
+// }
+//
+// void game::colecteaza_diamant(int x,int y) {
+//     const diamant* d = lab.get_diamant().get_obiect(x,y);
+//     if (!d) return;
+//     d->impact_jucator(j);
+//     inv+=(*d);
+//     lab.get_diamant().sterge_obiecte(x,y);
+//     std::pair<int,int> poz = j.get_pozitie();
+//    lab.ajusteaza_harta(j,poz.first,poz.second,x,y);
+// }
+//
+//
+// void game::game_over() {
+//    // system("cls");
+//     std::cout<<"\nGAME OVER!\n"<<std::endl;
+//     this->running = false;
+// }
+//
+// void game::cumpara_obiecte() {
+//
+//     char optiune;
+//
+//     bool cumparare = true;
+//     while (cumparare) {
+//         //system("cls");
+//         inv.afisare();
+//         j.afis_viata();
+//         std::cout<<"\nCUMPARA:\n";
+//         std::cout<<"1. Sabie - 100$\n";
+//         std::cout<<"2. Scut - 150$\n";
+//         std::cout<<"3. Potiune - 150$\n";
+//         std::cout<<"4. Am terminat!\n";
+//         std::cout<<"\nOptiune: ";
+//         std::cin >> optiune;
+//         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+//
+//
+//
+//         switch (optiune) {
+//             case '1': {
+//                 sabie_factory sf;
+//                 inv.adauga_obiect(sf.creare_ob_aparare());
+//                 break;
+//             }
+//             case '2': {
+//                 scut_factory scf;
+//                 inv.adauga_obiect(scf.creare_ob_aparare());
+//                 break;
+//             }
+//             case '3': {
+//                 potiune_factory pf;
+//                 inv.adauga_obiect(pf.creare_ob_aparare());
+//                 break;
+//             }
+//             case '4': {
+//                 //system("cls");
+//                 std::cout<<"\nAi actualizati inventarul cu succes!\n";
+//                // Sleep(1000);
+//                 cumparare = false;
+//                 break;
+//             }
+//             default: {
+//                 std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
+//                 cumparare = false;
+//                 break;
+//             }
+//         }
+//     }
+// }
+//
+// jucator& operator+(jucator& j, const obiect_aparare& ob) {
+//     j.set_viata(j.get_viata()+(ob.calc_putere()));
+//     j.verifica_viata();
+//     return j;
+// }
+//
+// void game::depaseste_bomba(int x,int y) {
+//     const bombe* b = lab.get_bomba().get_obiect(x,y);
+//     if (b == nullptr) return;
+//     bool alegere = true;
+//     char ch;
+//     while (alegere) {
+//         //system("cls");
+//         inv.afisare();
+//         j.afis_viata();
+//         lab.afiseaza();
+//         std::cout<<"\nAi o bomba in cale. Daca continui sa mergi, bomba explodeaza. Poti diminua efectele asupra vietii "
+//                "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o licoare\n4. Actualizeaza inventar\n3333: ";
+//         std::cin >> ch;
+//         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+//
+//         switch (ch) {
+//
+//             case '1': {
+//                 b->impact_jucator(j);
+//                 try {
+//                     j.verifica_viata();
+//                 }
+//                 catch (const ex_viata& e) {
+//                     std::cout<<"\n"<<e.what()<<"\n";
+//                     game_over();
+//                 }
+//                 lab.get_bomba().sterge_obiecte(x, y);
+//                 lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+//                 alegere = false;
+//                 break;
+//             }
+//
+//             case '2' : {
+//                 try {
+//                     auto s = inv.gaseste_obiect(typeid(scut));
+//                     if (inv.suficiente((s))) {
+//                         j = j-(*b);
+//                         inv.sterge_obiect(s);
+//                         lab.get_bomba().sterge_obiecte(x, y);
+//                         lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+//                         alegere = false;
+//                     } else throw ex_insuficiente("\nInsuficiente scuturi\n");
+//                 }
+//                 catch (const std::exception& e) {
+//                     std::cout<<e.what();
+//                     //Sleep(1000);
+//                 }
+//                 break;
+//             }
+//             case '3' : {
+//                 auto pn = inv.gaseste_obiect(typeid(potiune));
+//                 try {
+//                     if (inv.suficiente(pn)) {
+//                         inv.sterge_obiect(pn);
+//                         j.set_viata(j.get_viata()+pn->calc_putere());
+//                         j.verifica_viata();
+//                         alegere = false;
+//                     }
+//                     else throw ex_insuficiente("INSUFICIENTE!");
+//                 }
+//                 catch (const ex_insuficiente& e){
+//                     std::cout<<e.what()<<"\n";
+//                     //Sleep(1000);
+//                 }
+//                 break;
+//             }
+//             case '4': {
+//                 //system("cls");
+//                 cumpara_obiecte();
+//                 alegere = false;
+//                 break;
+//             }
+//
+//             default: {
+//                 std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
+//                 alegere = false;
+//                 break;
+//                 //Sleep(1000);
+//             }
+//         }
+//     }
+// }
+//
+
 #include "game.h"
 #include "sabie.h"
 #include "scut.h"
@@ -7,6 +393,7 @@
 #include "potiune_factory.h"
 #include "sabie_factory.h"
 #include "scut_factory.h"
+
 game* game::instance = nullptr;
 
 game* game::get_instance() {
@@ -16,14 +403,19 @@ game* game::get_instance() {
     return instance;
 }
 
-game::game() :lab(10,10){
+game::game() : lab(10, 10) {
     this->running = true;
+    this->needs_inventory_update = false;  // flag pentru actualizare inventar
 }
 
 void game::run() {
     cumpara_obiecte();
     while (running) {
-        //system("cls");
+        if (needs_inventory_update) {
+            cumpara_obiecte();
+            needs_inventory_update = false;
+        }
+
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
@@ -32,10 +424,10 @@ void game::run() {
     }
 }
 
-bool game::pozitie_valida(const labirint &lab, int x, int y) {
+bool game::pozitie_valida(const labirint& lab, int x, int y) {
     int lng = lab.get_dimensiuni().first;
     int lat = lab.get_dimensiuni().second;
-    return  x > 0 && x < lng && y > 0 && y < lat && lab.drum_liber(x,y);
+    return x > 0 && x < lng && y > 0 && y < lat && lab.drum_liber(x, y);
 }
 
 void game::actualizeaza_harta() {
@@ -47,16 +439,17 @@ void game::actualizeaza_harta() {
 
     char key;
     std::cin >> key;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-
-        switch (key) {
-            case 'w': x_nou -= 1; break;
-            case 's': x_nou += 1; break;
-            case 'a': y_nou -= 1; break;
-            case 'd': y_nou += 1; break;
-            default: std::cout<<"\nAi apasat o tasta gresita!\n";
-        }
+    switch (key) {
+        case 'w': x_nou -= 1; break;
+        case 's': x_nou += 1; break;
+        case 'a': y_nou -= 1; break;
+        case 'd': y_nou += 1; break;
+        default:
+            std::cout << "\nAi apasat o tasta gresita!\n";
+            return; // iesi imediat, evită procesare suplimentară
+    }
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
         j.set_pozitie(x_nou, y_nou);
@@ -69,198 +462,174 @@ void game::actualizeaza_harta() {
         if (lab.get_bomba().obiect_in_cale(x_nou, y_nou))
             depaseste_bomba(x_nou, y_nou);
     }
-
 }
+
 void game::verifica_status() {
-    if (j.get_pozitie().first==lab.get_dimensiuni().first-2 && j.get_pozitie().second==lab.get_dimensiuni().second-2) {
-        //system("cls");
-        std::cout<<"\nAI CASTIGAT JOCUL\n";
+    if (j.get_pozitie().first == lab.get_dimensiuni().first - 2 &&
+        j.get_pozitie().second == lab.get_dimensiuni().second - 2) {
+        std::cout << "\nAI CASTIGAT JOCUL\n";
         running = false;
     }
 }
 
-
- void game::lupta_cu_inamicul(int x, int y) {
-
-     char optiune;
-     bool inamic_viu = true;
+void game::lupta_cu_inamicul(int x, int y) {
+    char optiune;
+    bool inamic_viu = true;
     inamic* p = lab.get_inamic().get_obiect(x, y);
+    if (p == nullptr) return;
 
-     if (p == nullptr) return;
+    while (inamic_viu) {
+        inv.afisare();
+        lab.afiseaza();
+        j.afis_viata();
+        std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
+        std::cout << "\nOptiune: ";
+        std::cin >> optiune;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-     while (inamic_viu) {
-         //system("cls");
-         inv.afisare();
-         lab.afiseaza();
-         j.afis_viata();
-         std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
-         std::cout<<"\nOptiune: ";
-         std::cin >> optiune;
-         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        bool alegere = true;
+        char op;
+        switch (optiune) {
+            case 'l': {
+                while (alegere) {
+                    inv.afisare();
+                    lab.afiseaza();
+                    j.afis_viata();
+                    std::cout << "\n1. Foloseste sabia\n2. Actualizeaza inventarul\nOptiune: ";
+                    std::cin >> op;
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-         bool alegere = true;
-         char op;
-         switch (optiune) {
-             case 'l': {
-                 while (alegere) {
-                     //system("cls");
-                     inv.afisare();
-                     lab.afiseaza();
-                     j.afis_viata();
-                     std::cout<<"\n1. Foloseste sabia\n2. Actualizeaza inventarul\nOptiune: ";
-                     std::cin >> op;
-                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+                    switch (op) {
+                        case '1': {
+                            auto s = inv.gaseste_obiect(typeid(sabie));
+                            if (inv.suficiente(s)) {
+                                inv.sterge_obiect(s);
+                                inamic_viu = false;
+                                lab.get_inamic().sterge_obiecte(x, y);
+                                lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                            } else {
+                                std::cout << "\nNU AI SUFICIENTE SABII !!!\n";
+                            }
+                            alegere = false;
+                            break;
+                        }
 
+                        case '2': {
+                            needs_inventory_update = true;  // setează flag pentru actualizare în bucla principală
+                            alegere = false;
+                            break;
+                        }
 
-                     switch (op) {
+                        default: {
+                            std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
+                            alegere = false;
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
 
-                         case '1': {
-                             auto s = inv.gaseste_obiect(typeid(sabie));
-                             if (inv.suficiente(s)) {
-                                 inv.sterge_obiect(s);
-                                 inamic_viu = false;
-                                 lab.get_inamic().sterge_obiecte(x, y);
-                                 lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
-                             } else {
-                                 std::cout<<"\nNU AI SUFICIENTE SABII !!!\n";
-                                // Sleep(1000);
-                             }
-                             alegere = false;
-                             break;
-                         }
+            case 'c': {
+                bool f = true;
+                while (alegere) {
+                    inv.afisare();
+                    lab.afiseaza();
+                    j.afis_viata();
+                    std::cout << "\nIn continuare ai doua optiuni: \n1. Continua si pierde 70% din viata ta"
+                              << "\n2. Bea o potiune pentru a castiga mai multa viata\n3. Actualizeaza inventarul\nOptiune: ";
+                    std::cin >> op;
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                         case '2': {
-                             //system("cls");
-                            ///// cumpara_obiecte();
-                             alegere = false;
-                             break;
-                         }
+                    switch (op) {
+                        case '1': {
+                            try {
+                                p->damage(j);
+                                j.verifica_viata();
+                            } catch (const ex_viata& e) {
+                                std::cout << e.what() << "\n";
+                                game_over();
+                            }
+                            f = false;
+                            alegere = false;
+                            break;
+                        }
 
-                         default: {
-                             std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                             alegere = false;
-                             break;
-                         }
+                        case '2': {
+                            auto pn = inv.gaseste_obiect(typeid(potiune));
+                            try {
+                                if (inv.suficiente(pn)) {
+                                    inv.sterge_obiect(pn);
+                                    j.set_viata(j.get_viata() + pn->calc_putere());
+                                    j.verifica_viata();
+                                } else throw ex_insuficiente("INSUFICIENTE!");
+                            } catch (const ex_insuficiente& e) {
+                                std::cout << e.what() << "\n";
+                            }
+                            alegere = false;
+                            break;
+                        }
 
-                     }
-                 }
-                 break;
-             }
-             case 'c': {
-                 bool f = true;
-                 while (alegere) {
-                     //system("cls");
-                     inv.afisare();
-                     lab.afiseaza();
-                     j.afis_viata();
-                     std::cout<<"\nIn continuare ai doua optiuni: \n1. Continua si pierde 70% din viata ta"
-                   "\n2. Bea o potiune pentru a castiga mai multa viata\n3. Actualizeaza inventarul\nOptiune: ";
-                     std::cin >> op;
-                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+                        case '3': {
+                            needs_inventory_update = true;  // flag pentru actualizare
+                            alegere = false;
+                            break;
+                        }
 
+                        default: {
+                            std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
+                            alegere = false;
+                            break;
+                        }
+                    }
+                }
+                if (!f) {
+                    inamic_viu = false;
+                    lab.get_inamic().sterge_obiecte(x, y);
+                    lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                }
+                break;
+            }
 
-                     switch (op) {
-
-                         case '1': {
-                             try {
-                                 p->damage(j);
-                                 j.verifica_viata();
-                             }
-                             catch (const ex_viata& e) {
-                                 std::cout<<e.what()<<"\n";
-                                 game_over();
-                             }
-                             f = false;
-                             alegere = false;
-                             break;
-                         }
-
-                         case '2': {
-                             auto pn = inv.gaseste_obiect(typeid(potiune));
-                             try {
-                                 if (inv.suficiente(pn)) {
-                                     inv.sterge_obiect(pn);
-                                     j.set_viata(j.get_viata()+pn->calc_putere());
-                                     j.verifica_viata();
-                                 }
-                                 else throw ex_insuficiente("INSUFICIENTE!");
-                             }
-                             catch (const ex_insuficiente& e){
-                                 std::cout<<e.what()<<"\n";
-                             }
-                             alegere = false;
-                             break;
-                         }
-
-
-                         case '3': {
-                             //system("cls");
-                             /////////cumpara_obiecte();
-                             alegere = false;
-                             break;
-                         }
-
-                         default: {
-                             std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                             alegere = false;
-                             break;
-                         }
-                     }
-                 }
-                 if (!f) {
-                     inamic_viu = false;
-                     lab.get_inamic().sterge_obiecte(x, y);
-                     lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
-                 }
-                 break;
-             }
-             default: {
-                 std::cout<< "\nAi apasat o tasta gresita\n";
-                 alegere = false;
-                 break;
-                 //Sleep(1000);
-             }
-         }
-     }
-
+            default: {
+                std::cout << "\nAi apasat o tasta gresita\n";
+                alegere = false;
+                break;
+            }
+        }
+    }
 }
 
-void game::colecteaza_diamant(int x,int y) {
-    const diamant* d = lab.get_diamant().get_obiect(x,y);
+void game::colecteaza_diamant(int x, int y) {
+    const diamant* d = lab.get_diamant().get_obiect(x, y);
     if (!d) return;
     d->impact_jucator(j);
-    inv+=(*d);
-    lab.get_diamant().sterge_obiecte(x,y);
-    std::pair<int,int> poz = j.get_pozitie();
-   lab.ajusteaza_harta(j,poz.first,poz.second,x,y);
+    inv += (*d);
+    lab.get_diamant().sterge_obiecte(x, y);
+    std::pair<int, int> poz = j.get_pozitie();
+    lab.ajusteaza_harta(j, poz.first, poz.second, x, y);
 }
 
-
 void game::game_over() {
-   // system("cls");
-    std::cout<<"\nGAME OVER!\n"<<std::endl;
+    std::cout << "\nGAME OVER!\n" << std::endl;
     this->running = false;
 }
 
 void game::cumpara_obiecte() {
-
     char optiune;
-
     bool cumparare = true;
+
     while (cumparare) {
-        //system("cls");
         inv.afisare();
         j.afis_viata();
-        std::cout<<"\nCUMPARA:\n";
-        std::cout<<"1. Sabie - 100$\n";
-        std::cout<<"2. Scut - 150$\n";
-        std::cout<<"3. Potiune - 150$\n";
-        std::cout<<"4. Am terminat!\n";
-        std::cout<<"\nOptiune: ";
+        std::cout << "\nCUMPARA:\n";
+        std::cout << "1. Sabie - 100$\n";
+        std::cout << "2. Scut - 150$\n";
+        std::cout << "3. Potiune - 150$\n";
+        std::cout << "4. Am terminat!\n";
+        std::cout << "\nOptiune: ";
         std::cin >> optiune;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
-
-
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         switch (optiune) {
             case '1': {
@@ -279,15 +648,13 @@ void game::cumpara_obiecte() {
                 break;
             }
             case '4': {
-                //system("cls");
-                std::cout<<"\nAi actualizati inventarul cu succes!\n";
-               // Sleep(1000);
+                std::cout << "\nAi actualizati inventarul cu succes!\n";
                 cumparare = false;
                 break;
             }
             default: {
-                std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                cumparare = false;
+                std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
+                // nu inchide bucla la greseala, ca sa poata incerca din nou
                 break;
             }
         }
@@ -295,89 +662,73 @@ void game::cumpara_obiecte() {
 }
 
 jucator& operator+(jucator& j, const obiect_aparare& ob) {
-    j.set_viata(j.get_viata()+(ob.calc_putere()));
+    j.set_viata(j.get_viata() + (ob.calc_putere()));
     j.verifica_viata();
     return j;
 }
 
-void game::depaseste_bomba(int x,int y) {
-    const bombe* b = lab.get_bomba().get_obiect(x,y);
+void game::depaseste_bomba(int x, int y) {
+    const bombe* b = lab.get_bomba().get_obiect(x, y);
     if (b == nullptr) return;
     bool alegere = true;
     char ch;
     while (alegere) {
-        //system("cls");
         inv.afisare();
-        j.afis_viata();
         lab.afiseaza();
-        std::cout<<"\nAi o bomba in cale. Daca continui sa mergi, bomba explodeaza. Poti diminua efectele asupra vietii "
-               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o licoare\n4. Actualizeaza inventar\n3333: ";
+        j.afis_viata();
+        std::cout << "\nAi in cale o bomba. Alege ce vrei sa faci in continuare: \n1. Treci\n2. Bea o potiune\n3. Foloseste scutul\n4. Actualizeaza inventarul\nOptiune: ";
         std::cin >> ch;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         switch (ch) {
-
             case '1': {
-                b->impact_jucator(j);
                 try {
+                    //3b->damage(j);
                     j.verifica_viata();
-                }
-                catch (const ex_viata& e) {
-                    std::cout<<"\n"<<e.what()<<"\n";
+                } catch (const ex_viata& e) {
+                    std::cout << e.what() << "\n";
                     game_over();
                 }
-                lab.get_bomba().sterge_obiecte(x, y);
-                lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
                 alegere = false;
                 break;
             }
-
-            case '2' : {
-                try {
-                    auto s = inv.gaseste_obiect(typeid(scut));
-                    if (inv.suficiente((s))) {
-                        j = j-(*b);
-                        inv.sterge_obiect(s);
-                        lab.get_bomba().sterge_obiecte(x, y);
-                        lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
-                        alegere = false;
-                    } else throw ex_insuficiente("\nInsuficiente scuturi\n");
-                }
-                catch (const std::exception& e) {
-                    std::cout<<e.what();
-                    //Sleep(1000);
-                }
-                break;
-            }
-            case '3' : {
+            case '2': {
                 auto pn = inv.gaseste_obiect(typeid(potiune));
                 try {
                     if (inv.suficiente(pn)) {
                         inv.sterge_obiect(pn);
-                        j.set_viata(j.get_viata()+pn->calc_putere());
+                        j.set_viata(j.get_viata() + pn->calc_putere());
                         j.verifica_viata();
-                        alegere = false;
-                    }
-                    else throw ex_insuficiente("INSUFICIENTE!");
+                    } else
+                        throw ex_insuficiente("INSUFICIENTE!");
+                } catch (const ex_insuficiente& e) {
+                    std::cout << e.what() << "\n";
                 }
-                catch (const ex_insuficiente& e){
-                    std::cout<<e.what()<<"\n";
-                    //Sleep(1000);
+                alegere = false;
+                break;
+            }
+            case '3': {
+                auto sc = inv.gaseste_obiect(typeid(scut));
+                try {
+                    if (inv.suficiente(sc)) {
+                        inv.sterge_obiect(sc);
+                    } else
+                        throw ex_insuficiente("INSUFICIENTE!");
+                } catch (const ex_insuficiente& e) {
+                    std::cout << e.what() << "\n";
                 }
+                alegere = false;
                 break;
             }
             case '4': {
-                //system("cls");
-                cumpara_obiecte();
+                needs_inventory_update = true; // semnalează să se actualizeze inventarul în run()
                 alegere = false;
                 break;
             }
-
             default: {
-                std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
+                std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
                 alegere = false;
                 break;
-                //Sleep(1000);
             }
         }
     }
