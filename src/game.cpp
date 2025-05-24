@@ -46,7 +46,9 @@ void game::actualizeaza_harta() {
     int y_nou = y_vechi;
 
     char key;
-    std::cin>>key;
+    std::cin >> key;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+
 
         switch (key) {
             case 'w': x_nou -= 1; break;
