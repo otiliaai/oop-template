@@ -17,7 +17,7 @@ void labirint::generare_labirint(int x, int y) {
     for (const auto& directie: directii) {
         int dx = directie.first;
         int dy = directie.second;
-
+        //coordonatele noii celule
         int xx = x + dx;
         int yy = y + dy;
         if (valid(xx,yy)) {
@@ -69,9 +69,9 @@ labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime) {
     harta[1][1] = 'P';
     harta[lungime-2][latime-2] = 'X';
 
-    inamici = new generator<inamic>(*this, 12);
-    diamante = new generator<diamant>(*this, 15);
-    bomba = new generator<bombe>(*this, 10);
+    inamici = new generator<inamic>(*this, 1);
+    diamante = new generator<diamant>(*this, 1);
+    bomba = new generator<bombe>(*this, 1);
 
     inamici->plaseaza_obiecte();
     diamante->plaseaza_obiecte();

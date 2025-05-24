@@ -38,6 +38,8 @@ public:
     void ajusteaza_harta(caracter& p, int x_vechi, int y_vechi, int x_nou, int y_nou);
     std::vector<std::vector<char>>& get_harta();
 
+    int spatiu();
+
     generator<inamic>& get_inamic() const;
     generator<diamant>& get_diamant() const;
     generator<bombe>& get_bomba() const;

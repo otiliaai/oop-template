@@ -16,7 +16,7 @@ game* game::get_instance() {
     return instance;
 }
 
-game::game() :lab(20,45){
+game::game() :lab(10,10){
     this->running = true;
 }
 
@@ -94,6 +94,8 @@ void game::verifica_status() {
          std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
          std::cout<<"\nOptiune: ";
          std::cin >> optiune;
+         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
          bool alegere = true;
          char op;
          switch (optiune) {
@@ -104,7 +106,9 @@ void game::verifica_status() {
                      lab.afiseaza();
                      j.afis_viata();
                      std::cout<<"\n1. Foloseste sabia\n2. Actualizeaza inventarul\nOptiune: ";
-                     std::cin>>op;
+                     std::cin >> op;
+                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+
 
                      switch (op) {
 
@@ -132,7 +136,8 @@ void game::verifica_status() {
 
                          default: {
                              std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                             //Sleep(1000);
+                             alegere = false;
+                             break;
                          }
 
                      }
@@ -149,6 +154,8 @@ void game::verifica_status() {
                      std::cout<<"\nIn continuare ai doua optiuni: \n1. Continua si pierde 70% din viata ta"
                    "\n2. Bea o potiune pentru a castiga mai multa viata\n3. Actualizeaza inventarul\nOptiune: ";
                      std::cin >> op;
+                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+
 
                      switch (op) {
 
@@ -193,7 +200,8 @@ void game::verifica_status() {
 
                          default: {
                              std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                             //Sleep(1000);
+                             alegere = false;
+                             break;
                          }
                      }
                  }
@@ -206,6 +214,8 @@ void game::verifica_status() {
              }
              default: {
                  std::cout<< "\nAi apasat o tasta gresita\n";
+                 alegere = false;
+                 break;
                  //Sleep(1000);
              }
          }
@@ -245,7 +255,10 @@ void game::cumpara_obiecte() {
         std::cout<<"3. Potiune - 150$\n";
         std::cout<<"4. Am terminat!\n";
         std::cout<<"\nOptiune: ";
-        std::cin>>optiune;
+        std::cin >> optiune;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+
+
 
         switch (optiune) {
             case '1': {
@@ -272,7 +285,8 @@ void game::cumpara_obiecte() {
             }
             default: {
                 std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-               // Sleep(1000);
+                cumparare = false;
+                break;
             }
         }
     }
@@ -295,8 +309,10 @@ void game::depaseste_bomba(int x,int y) {
         j.afis_viata();
         lab.afiseaza();
         std::cout<<"\nAi o bomba in cale. Daca continui sa mergi, bomba explodeaza. Poti diminua efectele asupra vietii "
-               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o licoare\n4. Actualizeaza inventar\nOptiune: ";
-        std::cin>>ch;
+               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o licoare\n4. Actualizeaza inventar\n3333: ";
+        std::cin >> ch;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignoră restul liniei
+
         switch (ch) {
 
             case '1': {
@@ -357,6 +373,8 @@ void game::depaseste_bomba(int x,int y) {
 
             default: {
                 std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
+                alegere = false;
+                break;
                 //Sleep(1000);
             }
         }
