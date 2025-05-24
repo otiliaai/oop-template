@@ -126,6 +126,7 @@ void game::verifica_status() {
                          case '2': {
                              //system("cls");
                              cumpara_obiecte();
+                             alegere = false;
                              break;
                          }
 
@@ -186,6 +187,7 @@ void game::verifica_status() {
                          case '3': {
                              //system("cls");
                              cumpara_obiecte();
+                             alegere = false;
                              break;
                          }
 
