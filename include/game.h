@@ -11,7 +11,6 @@ class game {
     labirint lab;
     inventar inv;
     game();
-    bool needs_inventory_update;
 
 public:
     game(const game&) =  delete;

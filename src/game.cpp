@@ -362,4 +362,3 @@ void game::depaseste_bomba(int x,int y) {
         }
     }
 }
-
