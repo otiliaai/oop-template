@@ -33,7 +33,7 @@ void labirint::afiseaza() const {
     for (const auto& i : harta) {
         for (const auto& j : i)
             std::cout << j;
-            std::cout << '\n';
+        std::cout << '\n';
     }
 }
 
