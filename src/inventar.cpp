@@ -37,28 +37,23 @@ inventar& inventar::operator+=(const diamant& d) {
 //     std::cin>>cantitate;
 //     return cantitate;
 // }
-
 int inventar::introdu_cantitate() {
     int cantitate = 0;
     while (true) {
         std::cout << "Cantitate: ";
         std::cin >> cantitate;
 
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(10000, '\n');
-            std::cout << "Input invalid. Te rog sa introduci un numar intreg pozitiv.\n";
-        }
-        else if (cantitate <= 0) {
-            std::cin.ignore(10000, '\n');
-            std::cout << "Cantitatea trebuie sa fie un numar pozitiv mai mare ca zero.\n";
-        }
-        else {
-            std::cin.ignore(10000, '\n');
-            return cantitate;
+        if (std::cin.fail() || cantitate < 0) {
+            std::cin.clear(); // curăță flagul de eroare
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ignoră linia invalidă
+            std::cout << "Input invalid. Introdu un număr valid pozitiv.\n";
+        } else {
+            break;
         }
     }
+    return cantitate;
 }
+
 ///upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
     int c = introdu_cantitate();
