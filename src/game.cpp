@@ -18,7 +18,7 @@ game* game::get_instance() {
     return instance.get();
 }
 
-game::game() :lab(20,30){
+game::game() :lab(15,20){
     this->running = true;
 }
 
@@ -29,7 +29,6 @@ void game::run() {
         j.afis_viata();
         lab.afiseaza();
         actualizeaza_harta();
-        verifica_status();
     }
 }
 
@@ -45,8 +44,6 @@ void game::actualizeaza_harta() {
 
     int x_nou = x_vechi;
     int y_nou = y_vechi;
-
-    verifica_status();
 
     char key = '\0';
     std::cin>>key;
@@ -70,12 +67,13 @@ void game::actualizeaza_harta() {
         if (lab.get_bomba().obiect_in_cale(x_nou, y_nou))
             depaseste_bomba(x_nou, y_nou);
     }
+    verifica_status();
 
 }
 void game::verifica_status() {
     if (j.get_pozitie().first==lab.get_dimensiuni().first-2 && j.get_pozitie().second==lab.get_dimensiuni().second-2) {
-        //system("cls");
         std::cout<<"\nAI CASTIGAT JOCUL\n";
+        std::cin.get();
         running = false;
     }
 }
@@ -119,6 +117,8 @@ void game::verifica_status() {
                                      inamic_viu = false;
                                      lab.get_inamic().sterge_obiecte(x, y);
                                      lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                                     j.set_pozitie(x, y);
+                                     verifica_status();
                                  } else  throw ex_insuficiente ("\n======== INSUFICIENTE SABII !!! ======\n");
                              }
                              catch (const std::exception &e) {
@@ -200,7 +200,9 @@ void game::verifica_status() {
                  if (!f) {
                      inamic_viu = false;
                      lab.get_inamic().sterge_obiecte(x, y);
+                     j.set_pozitie(x,y);
                      lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                     verifica_status();
                  }
                  break;
              }
@@ -219,7 +221,9 @@ void game::colecteaza_diamant(int x,int y) {
     inv+=(*d);
     lab.get_diamant().sterge_obiecte(x,y);
     std::pair<int,int> poz = j.get_pozitie();
+    j.set_pozitie(x,y);
    lab.ajusteaza_harta(j,poz.first,poz.second,x,y);
+    verifica_status();
 }
 
 
@@ -233,7 +237,7 @@ void game::cumpara_obiecte() {
     bool cumparare = true;
     greseli = 0;
 
-    while (cumparare && greseli < 3) {
+    while (cumparare && greseli < 100) {
         try {
             inv.verifica_cont();
             inv.afisare();
@@ -324,6 +328,8 @@ void game::depaseste_bomba(int x,int y) {
                 }
                 lab.get_bomba().sterge_obiecte(x, y);
                 lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                j.set_pozitie(x,y);
+                verifica_status();
                 alegere = false;
                 break;
             }
@@ -336,6 +342,8 @@ void game::depaseste_bomba(int x,int y) {
                         inv.sterge_obiect(s);
                         lab.get_bomba().sterge_obiecte(x, y);
                         lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                        j.set_pozitie(x,y);
+                        verifica_status();
                         alegere = false;
                     } else throw ex_insuficiente("\nInsuficiente scuturi\n");
                 }

@@ -21,7 +21,7 @@ void inventar::afisare() const {
 }
 
 
-void inventar::verifica_cont(int suma) {
+void inventar::verifica_cont(int suma ) {
     if (comoara-suma<0)
         throw ex_bani("\nNU AI SUFICIENTI BANI.\n");
 }
