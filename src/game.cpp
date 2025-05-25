@@ -24,7 +24,7 @@ game::game() :lab(20,30){
 
 void game::run() {
     cumpara_obiecte();
-    while (running) {
+    while (running && greseli < 100) {
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
