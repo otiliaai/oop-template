@@ -9,8 +9,6 @@
 #include "scut_factory.h"
 game* game::instance = nullptr;
 
-int game::mistakes = 0;
-
 game* game::get_instance() {
     if (instance == nullptr) {
         instance = new game();
@@ -236,7 +234,7 @@ void game::cumpara_obiecte() {
     std::string optiune;
     bool cumparare = true;
 
-    while (mistakes < 3 && cumparare) {
+    while (cumparare && mistakes < 3) {
         inv.afisare();
         j.afis_viata();
 
@@ -247,6 +245,7 @@ void game::cumpara_obiecte() {
         std::cout << "4. Am terminat!\n";
         std::cout << "\nOptiune: ";
         std::cin >> optiune;
+
 
 
         if (optiune.length() == 1 && optiune == std::to_string(1)) {
