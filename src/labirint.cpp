@@ -61,6 +61,17 @@ std::vector<std::vector<char>>& labirint::get_harta() {
     return this->harta;
 }
 
+int labirint::spatiu(){
+    int nr = 0;
+    for (auto& i :  harta) {
+        for (auto& j : i) {
+            if (j == '_')
+                nr++;
+        }
+    }
+    return nr;
+}
+
 labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime) {
     if (lungime % 2 == 0) lungime++;
     if (latime % 2 == 0) latime++;
@@ -69,9 +80,9 @@ labirint::labirint(int lungime, int latime) : lungime(lungime), latime(latime) {
     harta[1][1] = 'P';
     harta[lungime-2][latime-2] = 'X';
 
-    inamici = new generator<inamic>(*this, 1);
-    diamante = new generator<diamant>(*this, 1);
-    bomba = new generator<bombe>(*this, 1);
+    inamici = new generator<inamic>(*this, int(sqrt(spatiu())));
+    diamante = new generator<diamant>(*this, int(sqrt(spatiu())));
+    bomba = new generator<bombe>(*this, int(sqrt(spatiu()))/2);
 
     inamici->plaseaza_obiecte();
     diamante->plaseaza_obiecte();

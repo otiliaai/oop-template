@@ -39,7 +39,7 @@ void jucator::afis_viata() const {
 
 
 void jucator::verifica_viata() {
-    if (this->viata <0)
+    if (this->viata <=0)
         throw ex_viata("\nNu mai ai viata! Nu mai poti lupta cu inamicii!");
     if (this->viata >100)
         this->viata=100;

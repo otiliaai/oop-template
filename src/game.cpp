@@ -18,13 +18,13 @@ game* game::get_instance() {
     return instance.get();
 }
 
-game::game() :lab(20,45){
+game::game() :lab(20,30){
     this->running = true;
 }
 
 void game::run() {
     cumpara_obiecte();
-    while (running && greseli < 4) {
+    while (running) {
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
@@ -92,8 +92,8 @@ void game::verifica_status() {
      while (inamic_viu) {
          //system("cls");
          inv.afisare();
-         lab.afiseaza();
          j.afis_viata();
+         lab.afiseaza();
          std::cout << "\nAi in cale un inamic. Alege ce vrei sa faci in continuare: \n'l' - lupta\n'c' - continua fara lupta\n";
          std::cout<<"\nOptiune: ";
          std::cin >> optiune;
@@ -104,8 +104,8 @@ void game::verifica_status() {
                  while (alegere) {
                      //system("cls");
                      inv.afisare();
-                     lab.afiseaza();
                      j.afis_viata();
+                     lab.afiseaza();
                      std::cout<<"\n1. Foloseste sabia\n2. Actualizeaza inventarul\nOptiune: ";
                      std::cin>>op;
 
@@ -113,21 +113,22 @@ void game::verifica_status() {
 
                          case '1': {
                              auto s = inv.gaseste_obiect(typeid(sabie));
-                             if (inv.suficiente(s)) {
-                                 inv.sterge_obiect(s);
-                                 inamic_viu = false;
-                                 lab.get_inamic().sterge_obiecte(x, y);
-                                 lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
-                             } else {
-                                 std::cout<<"\nNU AI SUFICIENTE SABII !!!\n";
-                                // Sleep(1000);
+                             try {
+                                 if (inv.suficiente(s)) {
+                                     inv.sterge_obiect(s);
+                                     inamic_viu = false;
+                                     lab.get_inamic().sterge_obiecte(x, y);
+                                     lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                                 } else  throw ex_insuficiente ("\n======== INSUFICIENTE SABII !!! ======\n");
+                             }
+                             catch (const std::exception &e) {
+                                 std::cout<<e.what();
                              }
                              alegere = false;
                              break;
                          }
 
                          case '2': {
-                             //system("cls");
                              cumpara_obiecte();
                              alegere = false;
                              break;
@@ -135,7 +136,6 @@ void game::verifica_status() {
 
                          default: {
                              std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                             //Sleep(1000);
                          }
 
                      }
@@ -145,10 +145,9 @@ void game::verifica_status() {
              case 'c': {
                  bool f = true;
                  while (alegere) {
-                     //system("cls");
                      inv.afisare();
-                     lab.afiseaza();
                      j.afis_viata();
+                     lab.afiseaza();
                      std::cout<<"\nIn continuare ai doua optiuni: \n1. Continua si pierde 70% din viata ta"
                    "\n2. Bea o potiune pentru a castiga mai multa viata\n3. Actualizeaza inventarul\nOptiune: ";
                      std::cin >> op;
@@ -177,9 +176,9 @@ void game::verifica_status() {
                                      j.set_viata(j.get_viata()+pn->calc_putere());
                                      j.verifica_viata();
                                  }
-                                 else throw ex_insuficiente("INSUFICIENTE!");
+                                 else throw ex_insuficiente("======== INSUFICIENTE POTIUNI ! ============");
                              }
-                             catch (const ex_insuficiente& e){
+                             catch (const std::exception& e){
                                  std::cout<<e.what()<<"\n";
                              }
                              alegere = false;
@@ -188,7 +187,6 @@ void game::verifica_status() {
 
 
                          case '3': {
-                             //system("cls");
                              cumpara_obiecte();
                              alegere = false;
                              break;
@@ -196,7 +194,6 @@ void game::verifica_status() {
 
                          default: {
                              std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                             //Sleep(1000);
                          }
                      }
                  }
@@ -208,9 +205,7 @@ void game::verifica_status() {
                  break;
              }
              default: {
-                 std::cout<< "\nAi apasat o tasta gresita\n";
-                 //Sleep(1000);
-             }
+                 std::cout<< "\nAi apasat o tasta gresita\n";}
          }
      }
 
@@ -220,6 +215,7 @@ void game::colecteaza_diamant(int x,int y) {
     const std::shared_ptr<diamant> d = lab.get_diamant().get_obiect(x,y);
     if (!d) return;
     d->impact_jucator(j);
+    j.verifica_viata();
     inv+=(*d);
     lab.get_diamant().sterge_obiecte(x,y);
     std::pair<int,int> poz = j.get_pozitie();
@@ -228,7 +224,6 @@ void game::colecteaza_diamant(int x,int y) {
 
 
 void game::game_over() {
-   // system("cls");
     std::cout<<"\nGAME OVER!\n"<<std::endl;
     this->running = false;
 }
@@ -315,7 +310,7 @@ void game::depaseste_bomba(int x,int y) {
         j.afis_viata();
         lab.afiseaza();
         std::cout<<"\nAi o bomba in cale. Daca continui sa mergi, bomba explodeaza. Poti diminua efectele asupra vietii "
-               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o licoare\n4. Actualizeaza inventar\nOptiune: ";
+               "folosind un scut.\n1. Continua\n2. Foloseste scut\n3. Bea o potiune\n4. Actualizeaza inventar\nOptiune: ";
         std::cin>>ch;
         switch (ch) {
 
@@ -360,7 +355,7 @@ void game::depaseste_bomba(int x,int y) {
                         j.verifica_viata();
                         alegere = false;
                     }
-                    else throw ex_insuficiente("INSUFICIENTE!");
+                    else throw ex_insuficiente("\n=============   INSUFICIENTE POTIUNI!!!  =============\n");
                 }
                 catch (const ex_insuficiente& e){
                     std::cout<<e.what()<<"\n";
@@ -377,7 +372,6 @@ void game::depaseste_bomba(int x,int y) {
 
             default: {
                 std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-                //Sleep(1000);
             }
         }
     }
