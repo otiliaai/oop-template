@@ -63,7 +63,7 @@ std::vector<std::vector<char>>& labirint::get_harta() {
 
 int labirint::spatiu() const{
     int nr = 0;
-    for (auto& i :  harta) {
+    for (const auto& i :  harta) {
         for (const auto& j : i) {
             if (j == '_')
                 nr++;
