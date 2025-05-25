@@ -1,5 +1,4 @@
 # 🧩Joc de Evadare din Labirint
-***
 
 
 ## 🎮 Descriere Gameplay
