@@ -234,8 +234,8 @@ void game::cumpara_obiecte() {
     greseli = 0;
 
     while (cumparare && greseli < 3) {
-
         try {
+            inv.verifica_cont();
             inv.afisare();
             j.afis_viata();
 
@@ -247,7 +247,6 @@ void game::cumpara_obiecte() {
             std::cout << "\nOptiune: ";
 
             std::cin >> optiune;
-            //std::getline(std::cin, optiune);
 
             if (optiune.empty()) {
                 std::cout << "\nOptiune invalida. Incearca din nou.\n";
