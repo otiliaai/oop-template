@@ -246,9 +246,6 @@ void game::cumpara_obiecte() {
             std::cout << "4. Am terminat!\n";
             std::cout << "\nOptiune: ";
 
-            //std::cin >> optiune;
-            // std::cin.clear();
-            // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::getline(std::cin, optiune);
             if (optiune.empty()) {
                 std::cout << "\nOptiune invalida. Incearca din nou.\n";
@@ -361,12 +358,10 @@ void game::depaseste_bomba(int x,int y) {
                 }
                 catch (const ex_insuficiente& e){
                     std::cout<<e.what()<<"\n";
-                    //Sleep(1000);
                 }
                 break;
             }
             case '4': {
-                //system("cls");
                 cumpara_obiecte();
                 alegere = false;
                 break;
