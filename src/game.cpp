@@ -247,6 +247,8 @@ void game::cumpara_obiecte() {
             std::cout << "\nOptiune: ";
 
             //std::cin >> optiune;
+            // std::cin.clear();
+            // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::getline(std::cin, optiune);
             if (optiune.empty()) {
                 std::cout << "\nOptiune invalida. Incearca din nou.\n";
