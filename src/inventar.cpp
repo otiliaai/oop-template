@@ -41,7 +41,6 @@ int inventar::introdu_cantitate() {
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
     int c = introdu_cantitate();
     for (int i = 0; i < c; i++) {
-        std::cout << "problem is here\n";
         try {
             verifica_cont(ob->get_pret());
             std::shared_ptr<obiect_aparare> ob_nou;

@@ -24,7 +24,7 @@ game::game() :lab(20,45){
 
 void game::run() {
     cumpara_obiecte();
-    while (running) {
+    while (running && greseli < 4) {
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
@@ -54,7 +54,7 @@ void game::actualizeaza_harta() {
             case 's': x_nou += 1; break;
             case 'a': y_nou -= 1; break;
             case 'd': y_nou += 1; break;
-            default: std::cout<<"\nAi apasat o tasta gresita!\n";
+            default: std::cout<<"\nAi apasat o tasta gresita!\n"; greseli++;
         }
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
@@ -254,9 +254,7 @@ void game::cumpara_obiecte() {
             continue;
         }
 
-        char alegere = optiune[0];
-
-        switch (alegere) {
+        switch (optiune[0]) {
             case '1': {
                 sabie_factory sf;
                 inv.adauga_obiect(sf.creare_ob_aparare());
