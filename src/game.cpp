@@ -9,7 +9,7 @@
 #include "scut_factory.h"
 game* game::instance = nullptr;
 
-int game::mistakes = 0;
+int game::greseli = 0;
 
 game* game::get_instance() {
     if (instance == nullptr) {
@@ -25,7 +25,6 @@ game::game() :lab(20,45){
 void game::run() {
     cumpara_obiecte();
     while (running) {
-        //system("cls");
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
@@ -236,7 +235,7 @@ void game::cumpara_obiecte() {
     std::string optiune;
     bool cumparare = true;
 
-    while (cumparare && mistakes < 3) {
+    while (cumparare && greseli < 3) {
         inv.afisare();
         j.afis_viata();
 
@@ -246,37 +245,36 @@ void game::cumpara_obiecte() {
         std::cout << "3. Potiune - 150$\n";
         std::cout << "4. Am terminat!\n";
         std::cout << "\nOptiune: ";
-        std::cin >> optiune;
 
+        std::getline(std::cin, optiune);
 
-
-        if (optiune.length() == 1 && optiune == std::to_string(1)) {
+        if (optiune == "1") {
             sabie_factory sf;
             inv.adauga_obiect(sf.creare_ob_aparare());
         }
-        else if (optiune.length() == 1 && optiune == std::to_string(2)) {
+        else if (optiune == "2") {
             scut_factory scf;
             inv.adauga_obiect(scf.creare_ob_aparare());
         }
-        else if (optiune.length() == 1 && optiune == std::to_string(3)) {
+        else if (optiune == "3") {
             potiune_factory pf;
             inv.adauga_obiect(pf.creare_ob_aparare());
         }
-        else if (optiune.length() == 1&& optiune == std::to_string(4)) {
+        else if (optiune == "4") {
             std::cout << "\nAi actualizati inventarul cu succes!\n";
             cumparare = false;
         }
         else if (optiune.length() > 1) {
             std::cout << "\nAi introdus mai mult de un caracter. Te rog sa introduci un singur caracter.\n";
-            mistakes++;
+            greseli++;
         }
         else {
             std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
-            optiune = "";
-            mistakes++;
+            greseli++;
         }
     }
 }
+
 
 jucator& operator+(jucator& j, const obiect_aparare& ob) {
     j.set_viata(j.get_viata()+(ob.calc_putere()));
