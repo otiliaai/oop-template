@@ -46,7 +46,7 @@ void game::actualizeaza_harta() {
     int x_nou = x_vechi;
     int y_nou = y_vechi;
 
-    char key = '';
+    char key = '\0';
     std::cin>>key;
 
         switch (key) {
