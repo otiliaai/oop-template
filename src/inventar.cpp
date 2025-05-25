@@ -7,6 +7,7 @@
 #include "potiune.h"
 #include "generator.h"
 #include <iostream>
+#include <sstream>
 
 
 int inventar::comoara = 500;
@@ -45,10 +46,15 @@ int inventar::introdu_cantitate() {
     while (greseli < 3) {
         std::cout << "Cantitate: ";
         std::getline(std::cin, line);
-        std::cout << "[DEBUG] Input: " << line << "\n";
+
+        // Обрезаем строку до первого пробела, если есть
+        std::istringstream iss(line);
+        std::string firstToken;
+        iss >> firstToken;
 
         try {
-            val = std::stoll(line);
+            val = std::stoll(firstToken);
+
             if (val <= 0 || val > 1000000) {
                 std::cout << "Numar invalid (max 1.000.000). Incearca din nou.\n";
                 greseli++;
@@ -61,6 +67,7 @@ int inventar::introdu_cantitate() {
             greseli++;
         }
     }
+
     std::cout << "Prea multe incercari gresite, cantitate setata la 0.\n";
     return 0;
 }
