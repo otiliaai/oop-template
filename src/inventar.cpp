@@ -37,7 +37,7 @@ inventar& inventar::operator+=(const diamant& d) {
 //     std::cin>>cantitate;
 //     return cantitate;
 // }
-int inventar::introduce_cantitate() {
+int inventar::introdu_cantitate() {
     long long val;
     std::string line;
     int greseli = 0;
@@ -65,7 +65,7 @@ int inventar::introduce_cantitate() {
 }
 
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare>& ob) {
-    int c = introduce_cantitate();
+    int c = introdu_cantitate();
     if (c <= 0) {
         std::cout << "Cantitate invalida, cumparare anulata.\n";
         return;
