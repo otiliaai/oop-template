@@ -251,6 +251,12 @@ void game::cumpara_obiecte() {
 
             std::getline(std::cin, optiune);
 
+            if (optiune.empty()) {
+                std::cout << "\nOptiune invalida. Incearca din nou.\n";
+                greseli++;
+                continue;
+            }
+
             switch (optiune[0]) {
                 case '1': {
                     sabie_factory sf;
