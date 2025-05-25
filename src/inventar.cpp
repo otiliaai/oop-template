@@ -37,33 +37,7 @@ int inventar::introdu_cantitate() {
     std::cin>>cantitate;
     return cantitate;
 }
-// int inventar::introdu_cantitate() {
-//     long long val;
-//     std::string line;
-//     int greseli = 0;
-//
-//     while (greseli < 3) {
-//         std::cout << "Cantitate: ";
-//         std::getline(std::cin, line);
-//         std::cout << "[DEBUG] Input: " << line << "\n";
-//
-//         try {
-//             val = std::stoll(line);
-//             if (val <= 0 || val > 1000000) {
-//                 std::cout << "Numar invalid (max 1.000.000). Incearca din nou.\n";
-//                 greseli++;
-//                 continue;
-//             }
-//             return static_cast<int>(val);
-//         }
-//         catch (...) {
-//             std::cout << "Input invalid. Te rog introdu un numar valid.\n";
-//             greseli++;
-//         }
-//     }
-//     std::cout << "Prea multe incercari gresite, cantitate setata la 0.\n";
-//     return 0;
-// }
+
 //upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare>& ob) {
     int c = introdu_cantitate();
