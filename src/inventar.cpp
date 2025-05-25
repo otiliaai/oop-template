@@ -45,6 +45,7 @@ int inventar::introdu_cantitate() {
     while (greseli < 3) {
         std::cout << "Cantitate: ";
         std::getline(std::cin, line);
+        std::cout << "[DEBUG] Input: " << line << "\n";
 
         try {
             val = std::stoll(line);
@@ -63,7 +64,7 @@ int inventar::introdu_cantitate() {
     std::cout << "Prea multe incercari gresite, cantitate setata la 0.\n";
     return 0;
 }
-
+//upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare>& ob) {
     int c = introdu_cantitate();
     if (c <= 0) {

@@ -256,7 +256,7 @@ void game::cumpara_obiecte() {
                 greseli++;
                 continue;
             }
-
+            std::cout << "[DEBUG] Input: " << optiune << "\n";
             switch (optiune[0]) {
                 case '1': {
                     sabie_factory sf;
