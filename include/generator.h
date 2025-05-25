@@ -30,7 +30,7 @@ generator<T>::~generator() {
     obiect.clear();
 }
 
-
+//DASDA
 
 template<typename T>
 generator<T>:: generator(labirint& lab,int nr):lab(lab),nr_obiecte(nr)
