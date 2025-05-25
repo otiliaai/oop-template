@@ -5,7 +5,7 @@
 #include "inventar.h"
 
 class game {
-    static game* instance;
+    static std::unique_ptr<game> instance;
     static int greseli;
     bool running;
     jucator j;

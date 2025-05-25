@@ -7,15 +7,15 @@
 #include "potiune_factory.h"
 #include "sabie_factory.h"
 #include "scut_factory.h"
-game* game::instance = nullptr;
+std::unique_ptr<game> game::instance = nullptr;
 
 int game::greseli = 0;
 
 game* game::get_instance() {
     if (instance == nullptr) {
-        instance = new game();
+        instance.reset(new game());
     }
-    return instance;
+    return instance.get();
 }
 
 game::game() :lab(20,45){

@@ -13,13 +13,24 @@ class generator {
     int nr_obiecte;
 public:
     generator(labirint& lab,int nr);
-    ~generator() = default;
+    ~generator();
     void plaseaza_obiecte();
     void sterge_obiecte(int x,int y);
     std::shared_ptr<T> get_obiect(int x,int y);
     bool obiect_in_cale(int x,int y);
 
 };
+
+
+template<typename T>
+generator<T>::~generator() {
+    for (auto& [key, ptr] : obiect) {
+        ptr.reset();
+    }
+    obiect.clear();
+}
+
+
 
 template<typename T>
 generator<T>:: generator(labirint& lab,int nr):lab(lab),nr_obiecte(nr)
