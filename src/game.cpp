@@ -283,7 +283,8 @@ void game::cumpara_obiecte() {
             }
         }
         catch ( ex_bani& e) {
-            cumparare = false;
+            //cumparare = false;
+            std::cout <<  e.what() << "\n";
             break;
         }
     }
