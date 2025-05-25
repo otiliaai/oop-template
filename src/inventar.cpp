@@ -65,9 +65,8 @@ int inventar::introdu_cantitate() {
 ///upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
     int c = introdu_cantitate();
-    bool are_bani = true;
     int i = 0;
-    while (i < c && are_bani) {
+    while (i < c) {
         try {
             verifica_cont(ob->get_pret());
             std::shared_ptr<obiect_aparare> ob_nou;
@@ -83,7 +82,6 @@ void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
         }
         catch (const ex_bani& e) {
             std::cout<<e.what()<<"\n";
-            are_bani = false;
             break;
         }
     }
