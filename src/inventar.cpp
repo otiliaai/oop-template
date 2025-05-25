@@ -40,21 +40,24 @@ inventar& inventar::operator+=(const diamant& d) {
 int inventar::introdu_cantitate() {
     long long val;
     std::string line;
+    int greseli = 0;
 
-    while (true) {
-        std::cout << "Cate obiecte vrei? ";
+    while (greseli < 3) {
+        std::cout << "Cantitate: ";
         std::getline(std::cin, line);
 
         try {
             val = std::stoll(line);
             if (val <= 0 || val > 1000000) {
                 std::cout << "Numar invalid (max 1.000.000). Incearca din nou.\n";
+                greseli++;
                 continue;
             }
             return static_cast<int>(val);
         }
         catch (...) {
             std::cout << "Input invalid. Te rog introdu un numar valid.\n";
+            greseli++;
         }
     }
 }
