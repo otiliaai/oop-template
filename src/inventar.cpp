@@ -26,6 +26,7 @@ void inventar::verifica_cont(int suma) {
         throw ex_bani("\nNU AI SUFICIENTI BANI.\n");
 }
 
+
 inventar& inventar::operator+=(const diamant& d) {
     this->comoara+=d.get_valoare();
     return *this;
