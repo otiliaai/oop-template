@@ -6,6 +6,7 @@
 
 class game {
     static game* instance;
+    static int mistakes;
     bool running;
     jucator j;
     labirint lab;

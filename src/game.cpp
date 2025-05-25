@@ -9,6 +9,8 @@
 #include "scut_factory.h"
 game* game::instance = nullptr;
 
+int game::mistakes = 0;
+
 game* game::get_instance() {
     if (instance == nullptr) {
         instance = new game();
@@ -234,7 +236,7 @@ void game::cumpara_obiecte() {
     std::string optiune;
     bool cumparare = true;
 
-    while (cumparare) {
+    while (mistakes < 3 && cumparare) {
         inv.afisare();
         j.afis_viata();
 
@@ -245,7 +247,6 @@ void game::cumpara_obiecte() {
         std::cout << "4. Am terminat!\n";
         std::cout << "\nOptiune: ";
         std::cin >> optiune;
-
 
 
         if (optiune.length() == 1 && optiune == std::to_string(1)) {
@@ -266,10 +267,12 @@ void game::cumpara_obiecte() {
         }
         else if (optiune.length() > 1) {
             std::cout << "\nAi introdus mai mult de un caracter. Te rog sa introduci un singur caracter.\n";
+            mistakes++;
         }
         else {
             std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
-            optiune = ""; // сброс значения
+            optiune = "";
+            mistakes++;
         }
     }
 }
