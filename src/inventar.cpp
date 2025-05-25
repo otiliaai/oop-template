@@ -53,13 +53,14 @@ int inventar::introdu_cantitate() {
                 greseli++;
                 continue;
             }
-            return static_cast<int>(val);
+            return (int)val;
         }
         catch (...) {
-            std::cout << "Input invalid. Te rog introdu un numar valid.\n";
             greseli++;
+            std::cout << "Input invalid. Te rog introdu un numar valid.\n";
         }
     }
+    return 0;
 }
 ///upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
