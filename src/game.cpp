@@ -46,6 +46,8 @@ void game::actualizeaza_harta() {
     int x_nou = x_vechi;
     int y_nou = y_vechi;
 
+    verifica_status();
+
     char key = '\0';
     std::cin>>key;
 
@@ -256,7 +258,6 @@ void game::cumpara_obiecte() {
                 greseli++;
                 continue;
             }
-            std::cout << "[DEBUG] Input: " << optiune << "\n";
             switch (optiune[0]) {
                 case '1': {
                     sabie_factory sf;
