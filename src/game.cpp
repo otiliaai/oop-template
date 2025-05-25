@@ -246,7 +246,14 @@ void game::cumpara_obiecte() {
         std::cout << "\nOptiune: ";
         std::cin >> optiune;
 
+        if (std::cin.fail()) {
+            std::cin.clear();           
+            std::cin.ignore(10000, '\n');
+            std::cout << "\nInput invalid. Te rog sa introduci un caracter valid.\n";
+            continue;
+        }
 
+        std::cin.ignore(10000, '\n');
 
         if (optiune.length() == 1 && optiune == std::to_string(1)) {
             sabie_factory sf;
