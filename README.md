@@ -1,13 +1,12 @@
-#🧩 Joc de Evadare din Labirint
-*
+#Joc de Evadare din Labirint🧩
+***
 
 
 ##🎮 Descriere Gameplay
 Jucătorul controlează un caracter (P) care se deplasează printr-un labirint cu scopul de a ajunge la X, simbolul care marchează ieșirea și finalul jocului.
 
-*
 
-##🧱 Elemente din labirint
+##Elemente din labirint🧱
 Simbol	Descriere
 P	Poziția curentă a jucătorului.
 X	Ținta finală – dacă ajungi aici, ai câștigat jocul.
@@ -25,7 +24,7 @@ Sabie: Necesară pentru a lupta cu inamicii (E).
 Scut: Protejează de bombe (@).
 
 Potiune magică: Poate fi băută când viața este aproape de zero , pentru a o creste.
-***
+
 ##❤️ Sistem de viață
 Jucătorul începe cu o viață prestabilită (ex: 100 HP).
 
@@ -36,7 +35,7 @@ Bombe (@) scad HP dacă nu ai scut.
 Inamicii (E) scad HP dacă nu ai sabie.
 
 Potiunea poate fi folosită pentru a restaura viata.
-***
+
 
 ##🏁 Condiții de victorie
 Jocul este câștigat doar când jucătorul ajunge la simbolul X.
