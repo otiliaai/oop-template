@@ -48,12 +48,10 @@ void game::actualizeaza_harta() {
 
     verifica_status();
 
-    // char key = '\0';
-    // std::cin>>key;
-    std::string input;
-    std::getline(std::cin, input);
+    char key = '\0';
+    std::cin>>key;
 
-    switch (input.empty() ? '\0' : input[0]) {
+        switch (key) {
             case 'w': x_nou -= 1; break;
             case 's': x_nou += 1; break;
             case 'a': y_nou -= 1; break;
@@ -237,7 +235,7 @@ void game::cumpara_obiecte() {
 
     while (cumparare && greseli < 3) {
         try {
-            inventar::verifica_cont();
+            inv.verifica_cont();
             inv.afisare();
             j.afis_viata();
 
