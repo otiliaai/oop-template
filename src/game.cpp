@@ -257,16 +257,19 @@ void game::cumpara_obiecte() {
                 case '1': {
                     sabie_factory sf;
                     inv.adauga_obiect(sf.creare_ob_aparare());
+                    optiune = '\0';
                     break;
                 }
                 case '2': {
                     scut_factory scf;
                     inv.adauga_obiect(scf.creare_ob_aparare());
+                    optiune = '\0';
                     break;
                 }
                 case '3': {
                     potiune_factory pf;
                     inv.adauga_obiect(pf.creare_ob_aparare());
+                    optiune = '\0';
                     break;
                 }
                 case '4': {
