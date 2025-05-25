@@ -31,16 +31,39 @@ inventar& inventar::operator+=(const diamant& d) {
     return *this;
 }
 
+// int inventar::introdu_cantitate() {
+//     int cantitate = 0;
+//     std::cout<<"Cantitate: ";
+//     std::cin>>cantitate;
+//     return cantitate;
+// }
 int inventar::introdu_cantitate() {
-    int cantitate = 0;
-    std::cout<<"Cantitate: ";
-    std::cin>>cantitate;
-    return cantitate;
+    long long val;
+    std::string line;
+
+    while (true) {
+        std::cout << "Cate obiecte vrei? ";
+        std::getline(std::cin, line);
+
+        try {
+            val = std::stoll(line);
+            if (val <= 0 || val > 1000000) {
+                std::cout << "Numar invalid (max 1.000.000). Incearca din nou.\n";
+                continue;
+            }
+            return static_cast<int>(val);
+        }
+        catch (...) {
+            std::cout << "Input invalid. Te rog introdu un numar valid.\n";
+        }
+    }
 }
 ///upcasting
 void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
     int c = introdu_cantitate();
-    for (int i = 0; i < c; i++) {
+    bool are_bani = true;
+    int i = 0;
+    while (i < c && are_bani) {
         try {
             verifica_cont(ob->get_pret());
             std::shared_ptr<obiect_aparare> ob_nou;
@@ -52,13 +75,14 @@ void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
                 ob_nou = std::make_shared<potiune>();
             this->defense.push_back(ob_nou);
             this->comoara-=ob->get_pret();
+            i++;
         }
         catch (const ex_bani& e) {
             std::cout<<e.what()<<"\n";
+            are_bani = false;
             break;
         }
     }
-
 }
 
 void inventar::sterge_obiect(std::shared_ptr<obiect_aparare>& ob) {

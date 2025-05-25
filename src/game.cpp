@@ -237,49 +237,50 @@ void game::cumpara_obiecte() {
     greseli = 0;
 
     while (cumparare && greseli < 3) {
-        inv.afisare();
-        j.afis_viata();
 
-        std::cout << "\nCUMPARA:\n";
-        std::cout << "1. Sabie - 100$\n";
-        std::cout << "2. Scut - 150$\n";
-        std::cout << "3. Potiune - 150$\n";
-        std::cout << "4. Am terminat!\n";
-        std::cout << "\nOptiune: ";
+        try {
+            inv.afisare();
+            j.afis_viata();
 
-        std::getline(std::cin, optiune);
-        if (optiune.empty()) {
-            std::cout << "\nInput gol. Te rog introdu o optiune valida.\n";
-            greseli++;
-            continue;
+            std::cout << "\nCUMPARA:\n";
+            std::cout << "1. Sabie - 100$\n";
+            std::cout << "2. Scut - 150$\n";
+            std::cout << "3. Potiune - 150$\n";
+            std::cout << "4. Am terminat!\n";
+            std::cout << "\nOptiune: ";
+
+            std::getline(std::cin, optiune);
+
+            switch (optiune[0]) {
+                case '1': {
+                    sabie_factory sf;
+                    inv.adauga_obiect(sf.creare_ob_aparare());
+                    break;
+                }
+                case '2': {
+                    scut_factory scf;
+                    inv.adauga_obiect(scf.creare_ob_aparare());
+                    break;
+                }
+                case '3': {
+                    potiune_factory pf;
+                    inv.adauga_obiect(pf.creare_ob_aparare());
+                    break;
+                }
+                case '4': {
+                    std::cout << "\nAi actualizat inventarul cu succes!\n";
+                    cumparare = false;
+                    break;
+                }
+                default: {
+                    std::cout << "\nOptiune invalida. Incearca din nou.\n";
+                    greseli++;
+                    break;
+                }
+            }
         }
-
-        switch (optiune[0]) {
-            case '1': {
-                sabie_factory sf;
-                inv.adauga_obiect(sf.creare_ob_aparare());
-                break;
-            }
-            case '2': {
-                scut_factory scf;
-                inv.adauga_obiect(scf.creare_ob_aparare());
-                break;
-            }
-            case '3': {
-                potiune_factory pf;
-                inv.adauga_obiect(pf.creare_ob_aparare());
-                break;
-            }
-            case '4': {
-                std::cout << "\nAi actualizat inventarul cu succes!\n";
-                cumparare = false;
-                break;
-            }
-            default: {
-                std::cout << "\nOptiune invalida. Incearca din nou.\n";
-                greseli++;
-                break;
-            }
+        catch ( ex_bani& e) {
+            break;
         }
     }
 }
