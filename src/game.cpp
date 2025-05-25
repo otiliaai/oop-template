@@ -234,6 +234,7 @@ void game::game_over() {
 void game::cumpara_obiecte() {
     std::string optiune;
     bool cumparare = true;
+    greseli = 0;
 
     while (cumparare && greseli < 3) {
         inv.afisare();
@@ -247,30 +248,40 @@ void game::cumpara_obiecte() {
         std::cout << "\nOptiune: ";
 
         std::getline(std::cin, optiune);
+        if (optiune.empty()) {
+            std::cout << "\nInput gol. Te rog introdu o optiune valida.\n";
+            greseli++;
+            continue;
+        }
 
-        if (optiune == "1") {
-            sabie_factory sf;
-            inv.adauga_obiect(sf.creare_ob_aparare());
-        }
-        else if (optiune == "2") {
-            scut_factory scf;
-            inv.adauga_obiect(scf.creare_ob_aparare());
-        }
-        else if (optiune == "3") {
-            potiune_factory pf;
-            inv.adauga_obiect(pf.creare_ob_aparare());
-        }
-        else if (optiune == "4") {
-            std::cout << "\nAi actualizati inventarul cu succes!\n";
-            cumparare = false;
-        }
-        else if (optiune.length() > 1) {
-            std::cout << "\nAi introdus mai mult de un caracter. Te rog sa introduci un singur caracter.\n";
-            greseli++;
-        }
-        else {
-            std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
-            greseli++;
+        char alegere = optiune[0];
+
+        switch (alegere) {
+            case '1': {
+                sabie_factory sf;
+                inv.adauga_obiect(sf.creare_ob_aparare());
+                break;
+            }
+            case '2': {
+                scut_factory scf;
+                inv.adauga_obiect(scf.creare_ob_aparare());
+                break;
+            }
+            case '3': {
+                potiune_factory pf;
+                inv.adauga_obiect(pf.creare_ob_aparare());
+                break;
+            }
+            case '4': {
+                std::cout << "\nAi actualizat inventarul cu succes!\n";
+                cumparare = false;
+                break;
+            }
+            default: {
+                std::cout << "\nOptiune invalida. Incearca din nou.\n";
+                greseli++;
+                break;
+            }
         }
     }
 }
