@@ -61,7 +61,7 @@ std::vector<std::vector<char>>& labirint::get_harta() {
     return this->harta;
 }
 
-int labirint::spatiu(){
+int labirint::spatiu() const{
     int nr = 0;
     for (auto& i :  harta) {
         for (auto& j : i) {
