@@ -231,49 +231,45 @@ void game::game_over() {
 }
 
 void game::cumpara_obiecte() {
-
-    char optiune;
-
+    std::string optiune;
     bool cumparare = true;
+
     while (cumparare) {
-        //system("cls");
         inv.afisare();
         j.afis_viata();
-        std::cout<<"\nCUMPARA:\n";
-        std::cout<<"1. Sabie - 100$\n";
-        std::cout<<"2. Scut - 150$\n";
-        std::cout<<"3. Potiune - 150$\n";
-        std::cout<<"4. Am terminat!\n";
-        std::cout<<"\nOptiune: ";
-        std::cin>>optiune;
 
-        switch (optiune) {
-            case '1': {
-                sabie_factory sf;
-                inv.adauga_obiect(sf.creare_ob_aparare());
-                break;
-            }
-            case '2': {
-                scut_factory scf;
-                inv.adauga_obiect(scf.creare_ob_aparare());
-                break;
-            }
-            case '3': {
-                potiune_factory pf;
-                inv.adauga_obiect(pf.creare_ob_aparare());
-                break;
-            }
-            case '4': {
-                //system("cls");
-                std::cout<<"\nAi actualizati inventarul cu succes!\n";
-               // Sleep(1000);
-                cumparare = false;
-                break;
-            }
-            default: {
-                std::cout<<"\nAi apasat o tasta gresita. Incearca din nou\n";
-               // Sleep(1000);
-            }
+        std::cout << "\nCUMPARA:\n";
+        std::cout << "1. Sabie - 100$\n";
+        std::cout << "2. Scut - 150$\n";
+        std::cout << "3. Potiune - 150$\n";
+        std::cout << "4. Am terminat!\n";
+        std::cout << "\nOptiune: ";
+        std::cin >> optiune;
+
+
+
+        if (optiune.length() == 1 && optiune == std::to_string(1)) {
+            sabie_factory sf;
+            inv.adauga_obiect(sf.creare_ob_aparare());
+        }
+        else if (optiune.length() == 1 && optiune == std::to_string(2)) {
+            scut_factory scf;
+            inv.adauga_obiect(scf.creare_ob_aparare());
+        }
+        else if (optiune.length() == 1 && optiune == std::to_string(3)) {
+            potiune_factory pf;
+            inv.adauga_obiect(pf.creare_ob_aparare());
+        }
+        else if (optiune.length() == 1&& optiune == std::to_string(4)) {
+            std::cout << "\nAi actualizati inventarul cu succes!\n";
+            cumparare = false;
+        }
+        else if (optiune.length() > 1) {
+            std::cout << "\nAi introdus mai mult de un caracter. Te rog sa introduci un singur caracter.\n";
+        }
+        else {
+            std::cout << "\nAi apasat o tasta gresita. Incearca din nou\n";
+            optiune = ""; // сброс значения
         }
     }
 }
