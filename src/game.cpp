@@ -9,6 +9,8 @@
 #include "scut_factory.h"
 game* game::instance = nullptr;
 
+int game::mistakes = 0;
+
 game* game::get_instance() {
     if (instance == nullptr) {
         instance = new game();
