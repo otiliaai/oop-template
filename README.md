@@ -1,11 +1,11 @@
 #🧩 Joc de Evadare din Labirint
-***
+*
 
 
 ##🎮 Descriere Gameplay
 Jucătorul controlează un caracter (P) care se deplasează printr-un labirint cu scopul de a ajunge la X, simbolul care marchează ieșirea și finalul jocului.
 
-***
+*
 
 ##🧱 Elemente din labirint
 Simbol	Descriere
@@ -14,7 +14,7 @@ X	Ținta finală – dacă ajungi aici, ai câștigat jocul.
 E	Inamic – jucătorul are nevoie de o sabie pentru a învinge.
 @	Bombă – cauzează daune dacă nu ai un scut.
 *	Diamant – crește viața jucătorului cu 10 puncte si adauga la comoara 100 RONI
-***
+
 
 ##🎒 Inventar & Obiecte
 Pe parcursul jocului, jucătorul poate colecta sau cumpăra obiecte care îl ajută să supraviețuiască și să depășească obstacolele.
