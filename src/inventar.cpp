@@ -37,7 +37,7 @@ inventar& inventar::operator+=(const diamant& d) {
 //     std::cin>>cantitate;
 //     return cantitate;
 // }
-int inventar::introdu_cantitate() {
+int inventar::introduce_cantitate() {
     long long val;
     std::string line;
     int greseli = 0;
@@ -53,35 +53,49 @@ int inventar::introdu_cantitate() {
                 greseli++;
                 continue;
             }
-            return (int)val;
+            return static_cast<int>(val);
         }
         catch (...) {
-            greseli++;
             std::cout << "Input invalid. Te rog introdu un numar valid.\n";
+            greseli++;
         }
     }
+    std::cout << "Prea multe incercari gresite, cantitate setata la 0.\n";
     return 0;
 }
-///upcasting
-void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare> &ob) {
-    int c = introdu_cantitate();
+
+void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare>& ob) {
+    int c = introduce_cantitate();
+    if (c <= 0) {
+        std::cout << "Cantitate invalida, cumparare anulata.\n";
+        return;
+    }
+
     int i = 0;
     while (i < c) {
         try {
             verifica_cont(ob->get_pret());
+
             std::shared_ptr<obiect_aparare> ob_nou;
+
             if (std::dynamic_pointer_cast<sabie>(ob))
                 ob_nou = std::make_shared<sabie>();
             else if (std::dynamic_pointer_cast<scut>(ob))
                 ob_nou = std::make_shared<scut>();
             else if (std::dynamic_pointer_cast<potiune>(ob))
                 ob_nou = std::make_shared<potiune>();
+
+            if (!ob_nou) {
+                std::cout << "Obiect necunoscut, nu poate fi adaugat.\n";
+                break;
+            }
+
             this->defense.push_back(ob_nou);
-            this->comoara-=ob->get_pret();
+            this->comoara -= ob->get_pret();
             i++;
         }
         catch (const ex_bani& e) {
-            std::cout<<e.what()<<"\n";
+            std::cout << e.what() << "\n";
             break;
         }
     }
