@@ -87,7 +87,7 @@ void inventar::adauga_obiect(const std::shared_ptr<obiect_aparare>& ob) {
 
             if (!ob_nou) {
                 std::cout << "Obiect necunoscut, nu poate fi adaugat.\n";
-                break;
+                return;
             }
 
             this->defense.push_back(ob_nou);
