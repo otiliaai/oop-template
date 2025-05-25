@@ -83,7 +83,7 @@ void game::verifica_status() {
 
      char optiune;
      bool inamic_viu = true;
-    inamic* p = lab.get_inamic().get_obiect(x, y);
+    std::shared_ptr<inamic> p = lab.get_inamic().get_obiect(x, y);
 
      if (p == nullptr) return;
 
@@ -215,7 +215,7 @@ void game::verifica_status() {
 }
 
 void game::colecteaza_diamant(int x,int y) {
-    const diamant* d = lab.get_diamant().get_obiect(x,y);
+    const std::shared_ptr<diamant> d = lab.get_diamant().get_obiect(x,y);
     if (!d) return;
     d->impact_jucator(j);
     inv+=(*d);
@@ -297,7 +297,7 @@ jucator& operator+(jucator& j, const obiect_aparare& ob) {
 }
 
 void game::depaseste_bomba(int x,int y) {
-    const bombe* b = lab.get_bomba().get_obiect(x,y);
+    const std::shared_ptr<bombe> b = lab.get_bomba().get_obiect(x,y);
     if (b == nullptr) return;
     bool alegere = true;
     char ch;
