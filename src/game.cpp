@@ -58,6 +58,8 @@ void game::actualizeaza_harta() {
 
     if (pozitie_valida(lab, x_nou, y_nou)) {
         j.set_pozitie(x_nou, y_nou);
+        if (lab.get_harta()[x_nou][y_nou] == 'X')
+            std::cout<<"\nAI CASTIGAT JOCUL\n";
         lab.ajusteaza_harta(j, x_vechi, y_vechi, x_nou, y_nou);
     } else {
         if (lab.get_inamic().obiect_in_cale(x_nou, y_nou))
@@ -72,8 +74,7 @@ void game::actualizeaza_harta() {
 }
 void game::verifica_status() {
     if (j.get_pozitie().first==lab.get_dimensiuni().first-2 && j.get_pozitie().second==lab.get_dimensiuni().second-2) {
-        std::cout<<"\nAI CASTIGAT JOCUL\n";
-        std::cin.get();
+        std::cout<<"\n\n\nAI CASTIGAT JOCUL\n";
         running = false;
     }
 }
@@ -200,8 +201,8 @@ void game::verifica_status() {
                  if (!f) {
                      inamic_viu = false;
                      lab.get_inamic().sterge_obiecte(x, y);
-                     j.set_pozitie(x,y);
                      lab.ajusteaza_harta(j, j.get_pozitie().first, j.get_pozitie().second, x, y);
+                     j.set_pozitie(x,y);
                      verifica_status();
                  }
                  break;
@@ -308,7 +309,6 @@ void game::depaseste_bomba(int x,int y) {
     bool alegere = true;
     char ch;
     while (alegere) {
-        //system("cls");
         inv.afisare();
         j.afis_viata();
         lab.afiseaza();
@@ -349,7 +349,6 @@ void game::depaseste_bomba(int x,int y) {
                 }
                 catch (const std::exception& e) {
                     std::cout<<e.what();
-                    //Sleep(1000);
                 }
                 break;
             }
