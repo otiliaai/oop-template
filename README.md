@@ -5,7 +5,7 @@
 Jucătorul controlează un caracter (P) care se deplasează printr-un labirint cu scopul de a ajunge la X, simbolul care marchează ieșirea și finalul jocului.
 
 
-##🧱Elemente din labirint
+## 🧱Elemente din labirint
 Simbol	Descriere
 P	Poziția curentă a jucătorului.
 X	Ținta finală – dacă ajungi aici, ai câștigat jocul.
@@ -133,4 +133,5 @@ Nerespectarea duce la nepunctarea proiectului
 
 * folderele `build/` și `install_dir/` sunt adăugate în fișierul `.gitignore` deoarece
 conțin fișiere generate și nu ne ajută să le versionăm.
+
 
